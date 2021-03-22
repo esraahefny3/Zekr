@@ -1,0 +1,226 @@
+.ks_overlay
+{
+    position: fixed !important; 
+    width: 100% !important;  
+    height: 100% !important;  
+    top: 0 !important;  
+    left: 0 !important; 
+    right: 0 !important; 
+    bottom: 0 !important; 
+    background-color: rgba(0,0,0,0.8) !important; 
+    z-index: 6000 !important;
+    font-family: Helvetica, Arial, sans-serif !important;
+    box-sizing: none !important;
+    direction: ltr !important;
+    box-sizing: content-box !important;
+
+}
+
+.ks_overlay *{
+    box-sizing: none !important;
+    direction: ltr !important;
+}
+
+
+
+.ks_uppercase { 
+ text-transform: capitalize !important;
+}
+
+.profilebox {
+    min-width: 600px !important;
+    position: relative !important;
+    background-image: linear-gradient(to left, #ffbc00, #fe9e00, #fb7f00, #f65c00, #ee2e05) !important; */
+    min-height: 230px !important;
+    max-width: 700px !important;
+    width: calc(60% - 120px) !important;
+    border-radius: 8px !important;
+    padding: 50px 20px 20px 100px !important;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.23), 0 10px 40px rgba(0, 0, 0, 0.19) !important;
+    display: flex !important;
+    flex-direction: column !important;
+    box-sizing: content-box !important;
+}
+
+.profilebox footer{
+    box-shadow: none;
+    background: none !important;
+    padding: 0px !important;
+}
+.profpic {
+    position: absolute !important;
+    top: 20px !important;
+    left: -60px !important;
+    height: 120px !important;
+    width: 120px !important;
+    border-radius: 50% !important;
+    border: 4px solid #EE2E05 !important;
+    background: #22242a !important;
+    display: inline-block !important;
+    box-shadow: 0 1.5px 4px rgba(0, 0, 0, 0.24), 0 1.5px 6px rgba(0, 0, 0, 0.12) !important;
+}
+
+
+.prof-close {
+    position: absolute !important;
+    top: 10px !important;
+    right: 10px !important;
+    height: 30px !important;
+    line-height: 30px !important;
+    width: 30px !important;
+    background: transparent !important;
+    outline: 0 none !important;
+    border: none !important;
+    border-radius: 50% !important;
+    font-size: 18pt !important;
+    color: rgba(255, 255, 255, 0.87) !important;
+    cursor: pointer !important;
+    text-align: center !important;
+    transition: all 0.15s ease-in-out !important;
+    box-shadow: none !important;
+
+}
+.prof-close:active {
+    background: rgba(255,255,255,.02) !important;
+    box-shadow: 0 1.5px 4px rgba(0, 0, 0, 0.24), 0 1.5px 6px rgba(0, 0, 0, 0.12) !important;
+}
+.ks_info {
+  /*  position: absolute !important;
+    bottom: 10px !important;
+    right: 10px !important;*/
+    height: 30px !important;
+    line-height: 30px !important;
+    width: auto !important;
+    background: transparent !important;
+    outline: 0 none !important;
+    border: none !important;
+    border-radius: 50% !important;
+    font-size: 12pt !important;
+    color: rgba(255, 255, 255, 0.90) !important;
+    cursor: pointer !important;
+    text-align: center !important;
+    transition: all 0.15s ease-in-out !important;
+    box-shadow: none !important;
+}
+.ks_info:active {
+    background: rgba(255,255,255,.0) !important;
+}
+.prof-sm {
+    position: absolute !important;
+    list-style: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    top: 152px !important;
+    left: -20px !important;
+    width: 40px !important;
+}
+.prof-sm .ks_sm {
+    cursor: pointer !important;
+    width: 40px !important;
+    height: 40px !important;
+    margin-bottom: 4px !important;
+    border-radius: 50% !important;
+    background: #EE2E05 !important;
+    transition: all 0.15s ease-in-out !important;
+    box-shadow: 0 1.5px 4px rgba(0, 0, 0, 0.24), 0 1.5px 6px rgba(0, 0, 0, 0.12) !important;
+}
+.prof-sm .ks_sm:hover {
+    background: #9d0000 !important;
+}
+.prof-sm .ks_sm:active {
+    background: #fdd706 !important;
+}
+.prof-sm span {
+    display: inline-block!important;
+    height: 40px !important;
+    width: 40px !important;
+    border-radius: 50% !important;
+}
+.prof-sm svg {
+    width: 30px !important;
+    height: 30px !important;
+    margin: 5px !important;
+    border-radius: 50% !important;
+}
+.prof-sm path {
+    fill: rgb(248, 248, 248) !important;
+}
+.prof-name {
+    display: block !important;
+    margin: 0 !important;
+    color: white !important;
+    font-weight: normal !important;
+    font-size: 20pt !important;
+}
+.prof-user {
+    display: block !important;
+    margin: 0 !important;
+    color: rgba(255, 255, 255, 0.69) !important;
+    font-weight: normal !important;
+    font-size: 11pt !important;
+}
+
+.user-tags {
+    margin: 20px 0 0 0 !important;
+    padding: 0 !important;
+    list-style: none !important;
+    cursor: default !important;
+}
+
+.user-tags .tag {
+    display: inline-block !important;
+    font-size: 10pt !important;
+    text-transform: lowercase !important;
+    color: rgba(255, 255, 255, 0.72) !important;
+    background: rgba(255, 219, 69, 0.58) !important;
+    height: 20px !important;
+    line-height: 20px !important;
+    padding: 0 10px !important;
+    border-radius: 10px !important;
+    box-shadow: 0 1.5px 4px rgba(0, 0, 0, 0.24), 0 1.5px 6px rgba(0, 0, 0, 0.12) !important;
+}
+.ks-user-desc {
+    color: rgba(255, 255, 255, 0.96) !important;
+    font-size: 33pt !important;
+    line-height: 36pt !important;
+    flex: 1 0 auto !important;
+    padding-top: 5% !important;
+}
+
+.ks-user-desc p{
+    line-height: 36pt !important;
+}
+
+
+
+
+.ks_center{
+    text-align: center !important;
+}
+
+.ks_nounderline{
+    text-decoration: none;
+}
+
+.ks_nounderline:hover{
+    text-decoration: none;
+}
+
+.ks_nomargin{
+    margin: 0px !important;
+}
+
+/*
+.ks_p{
+    cursor: pointer !important;
+    text-align: center !important;
+    color: white !important;
+*/
+
+
+ks_header, .ks-user-desc{
+    background-color: rgba(0,0,0,0) !important;
+    background: rgba(0,0,0,0) !important;
+} 
+ 
+

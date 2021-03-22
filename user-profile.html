@@ -1,0 +1,161 @@
+<html dir="rtl" lang="ar">
+
+<head lang="en">
+  <meta charset="UTF-8">
+  <title>Zekr</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" type="text/css" href="css/user-profile.css">
+  <link rel="stylesheet" type="text/css" href="css/topbar.css">
+  <link rel="stylesheet" type="text/css" href="css/footer.css">
+
+  <link rel="stylesheet" type="text/css" href="vendor/fontawesome/css/all.min.css">
+  <link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.min.css">
+</head>
+
+<body>
+  <!-- <div class="topbar theme_color_picker">
+      <div class="container   height: 100%;">
+        <div class="header-logo">
+          <span class="duolingo logo">kasahorow Learn</span>
+          <span class="lockup">Welcome Page</span>
+        </div>
+        <a target="_blank" class="outline-btn" href="https://www.kasahorow.org/">kasahorow Website</a>
+      </div>
+    </div>
+    <div class="section hero theme_color_picker">
+      <div class="container height_100">
+          <h1 id="user_name">It's time to learn. </h1>
+        <span class="chatbot-illustration"></span>
+      </div>
+    </div> -->
+
+  <div class="section">
+    <div class="container">
+      <div class="text">
+        <h2>نرحب بمعرفتك</h2>
+        <p>
+        <form id="form-user-info">
+          <div id="alert" style="display: none" class="alert alert-danger"></div>
+          <div class="form-group">
+            <div class="input-group mb-3 px-2 py-2 rounded-pill bg-white shadow-sm">
+              <input id="upload" type="file" class="form-control border-0">
+              <div class="input-group-append">
+                <label for="upload" class="btn btn-light m-0 rounded-pill px-4"> <i class="fa fa-cloud-upload mr-2 text-muted"></i></label>
+              </div>
+              <!-- Uploaded image area-->
+              <div class="image-area mt-4"><img id="imageResult" src="images/icon48.png" alt="" class="img-fluid rounded shadow-sm mx-auto d-block"></div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="input-username">الاسم</label>
+            <input type="text" class="form-control" id="input-username" placeholder="ادخل اسمك" required="true">
+          </div>
+
+          <div class="form-group">
+            <label for="input-email">الايميل</label>
+            <input type="email" class="form-control" id="input-email" aria-describedby="email-help" placeholder="ادخل ايميلك" required="true">
+            <small id="email-help" class="form-text text-muted">ادخل ايميلك</small>
+          </div>
+          <div class="form-group">
+            <!-- <label for="input-country">البلد</label>
+            <div class="div-picker-country">
+              <div class="picker-country" data-selectedcountry="eg" data-showspecial="false" data-showflags="true" data-i18nall="All selected" data-i18nnofilter="No selection" data-i18nfilter="Filter" data-onchangecallback="onChangeCallback">
+              </div>
+            </div> -->
+            <select class="form-control" id="country-select" required>
+            </select>
+
+            <select class="form-control" id="state-select" required>
+            </select>
+            <button type="button" class="btn btn-link" id="link-country-auto-detect">حدد لي موقعي</button>
+          </div>
+          <button type="submit" id="submit_btn" class="btn btn-primary">حفظ</button>
+        </form>
+
+        <!-- Modal -->
+        <div id="dialog-data-saved" class="modal fade" role="dialog">
+          <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">تم تسجيل المعلومات بنجاح</h4>
+              </div>
+              <div class="modal-body">
+                <p> يمكنك تعديل معلوماتك في اي وقت</p>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">اغلاق</button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+        </p>
+        <p>والذاكرين الله كثير</p>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="section bots">
+    <div class="container center">
+
+      <h2 class="center">Let`s enjoy learning</h2>
+      <div id="introduce_popup">
+
+      </div>
+      <div class="bot-wrapper">
+        <div class="col-3">
+          <span class="icon"> <i class="fas fa-book-reader fa-10x"></i></span>
+          <h3>Cool overlay</h3>
+          <p>You will get a cool overlay with new words</p>
+        </div>
+        <div class="col-3">
+          <span class="icon"> <i class="fas fa-sliders-h fa-10x"></i>
+
+          </span>
+          <h3>Customize your settings</h3>
+          <p>Choose language you want to learn, websites to learn on and more.. <a id="settings_btn" href="./settings.html">Settings</a></p>
+        </div>
+        <div class="col-3">
+          <span class="icon"><i class="fas fa-smile-wink fa-10x"></i></span>
+          <h3>Enjoy </h3>
+          <p>Learning is easy and fun with us</p>
+        </div>
+
+
+      </div>
+    </div>
+  </div>
+
+  <div class="section footer">
+    <div class="container">
+      <h2 class="center">kasahorow Learn - Always Learn</h2>
+      <ul>
+        <!-- <li><a target="_blank" href="https://www.kasahorow.org/">kasahorow</a></li>
+        <li><a target="_blank" href="https://www.kasahorow.org/app/d">Dictionary</a></li>
+        <li><a target="_blank" href="https://www.kasahorow.org/app/l">Reading Club</a></li>
+        <li><a target="_blank" href="https://www.kasahorow.org/app/e">Popular</a></li>
+        <li><a target="_blank" href="https://www.facebook.com/kasahorow/">Facebook</a></li> -->
+        <li><a id="settings_btn" href="./settings.html">Settings</a></li>
+    </div>
+  </div>
+</body>
+<!--  3rd party libraries and utilities -->
+<script src="vendor/jquery/jquery.js"></script>
+<script src="vendor/bootstrap/js/bootstrap.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-firestore.js"></script>
+<!-- <script src="js/initialize_theme.js"></script> -->
+<script src="js/firebase-config.js"></script>
+<script src="js/helpers.js"></script>
+<script src="js/user.js"></script>
+<script src="js/countries.js"></script>
+<script src="js/states.js"></script>
+<script src="js/user-profile.js"></script>
+
+</html>
