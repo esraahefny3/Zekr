@@ -145,8 +145,8 @@ function saveLearningTime() {
 
 //Redirect to redirect_website
 function redirect() {
-  var user = storage_get("user");
-  if (user.redirect_website) {
+  var settings = storage_get("settings");
+  if (settings.redirect_website) {
     let learnTime = saveLearningTime();
     add_to_word_analytics(true, learnTime);
     clearInfo();
@@ -157,7 +157,7 @@ function redirect() {
       currentWindow: true
     }, function(tabs) {
       chrome.tabs.update(tabs[0].id, {
-        url: user.redirect_website
+        url: settings.redirect_website
       });
     });
 
@@ -166,8 +166,8 @@ function redirect() {
 }
 
 function check_redirect() {
-  var user = storage_get("user");
-  if (user.redirect_website) {
+  var settings = storage_get("settings");
+  if (settings.redirect_website) {
     return true;
   } else {
     return false;
@@ -364,7 +364,7 @@ function set_lang(language) {
 }
 
 function get_redirect() {
-  return storage_get("user").redirect_website;
+  return storage_get("settings").redirect_website;
 }
 
 function set_last_run() {
