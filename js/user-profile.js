@@ -33,7 +33,7 @@
  function initUserDataFormSubmitListener() {
    $('#form-user-info').submit(function(e) {
      e.preventDefault();
-     let user = new User();
+     let user = storage_get(User.storageKey);
      user.userName = $(inputUserNameId).val();
      user.email = $(inputEmailId).val();
      user.location = {
@@ -50,8 +50,6 @@
  function intializeFormInputFields() {
    let user = storage_get(User.storageKey);
    if (user) {
-     user = JSON.parse(JSON.stringify(user));
-     $(profilePicId).attr('src', user.profilePic);
      $(inputUserNameId).val(user.userName);
      $(inputEmailId).val(user.email);
      if (user.location.countryCode) {
@@ -97,13 +95,15 @@
  });
  $('#state-select').on('change', function(e) {
    var value = $(this).val();
-   console.log('hereee');
+
 
  });
 
  function init() {
    //intialize file upload input
-   initFileUpload();
+
+   // initFileUpload();
+
    //Intialize the NiceCountry Input
    // new NiceCountryInput($('.picker-country')).init();
 
@@ -125,30 +125,16 @@
      SAVING USER DATA
  * ========================================== */
  function saveUser(user) {
-   //save to firestore
-   userObject = JSON.parse(JSON.stringify(user));
-   // userObject.profilePic = $(profilePicId).attr('src');
-   let oldUser = storage_get(User.storageKey);
-   oldUser = JSON.parse(JSON.stringify(oldUser));
-   if (oldUser.firebaseDocRefId) {
-     updateDb(User.storageKey, oldUser.firebaseDocRefId, userObject, callback);
 
-   } else {
-     addToDb(User.storageKey, userObject, callback);
-   }
-
-   function callback(docRefId) {
-     //save to local storage
-     if (docRefId)
-       user.firebaseDocRefId = docRefId;
-     storage_set(User.storageKey, JSON.stringify(user));
-     $.ajax({
-       success: function(data) {
-         $(dialogDataSavedId).modal('show');
-       }
-     });
-   }
+   // userObject = JSON.parse(JSON.stringify(user));
+   storage_set(User.storageKey, user);
+   $.ajax({
+     success: function(data) {
+       $(dialogDataSavedId).modal('show');
+     }
+   });
  }
+
 
  /*  ==========================================
     COUNTRY AUTODETECT

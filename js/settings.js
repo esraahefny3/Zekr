@@ -15,7 +15,11 @@ var theme_color_bluewave = document.getElementById('bluewave');
 var theme_color_summertime = document.getElementById('summertime');
 var theme_color_party = document.getElementById('party');
 var theme_color_stars = document.getElementById('stars');
-var theme_color_picker = document.getElementById('theme_color_picker')
+var theme_color_picker = document.getElementById('theme_color_picker');
+var redirectWebsite_lable = document.getElementById('redirectWebsite_lable');
+var redirect_website_input = document.getElementById('redirect_website_input');
+var add_redirect_btn = document.getElementById('add_redirect_btn');
+var remove_redirect_btn = document.getElementById('remove_redirect_btn');
 
 function displayRedirectWebsiteBtn(value) {
   if (value) {
@@ -136,10 +140,73 @@ function initSettings() {
     }
   });
 
+  redirect_website_input.addEventListener('keypress', function(e) {
+    var key = e.which || e.keyCode;
+    if (key === 13) { // 13 is enter
+      setRedirectWebsiteStorage();
+    }
+  });
+  add_redirect_btn.addEventListener('click', (e) => {
+    setRedirectWebsiteStorage();
+  });
 
+  remove_redirect_btn.addEventListener('click', (e) => {
+    removeRedirectWebsiteStorage();
+    $('#remove_redirect_btn').attr("disabled", true);
+  });
 }
 
 
+
+function removeRedirectWebsiteStorage() {
+  try {
+    bgpage.removeRedirectWebsite();
+    displayRedirectWebsiteLabel(null);
+    displayRedirectWebsiteBtn(null);
+    redirect_website_input.value = ""
+
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+function displayRedirectWebsiteBtn(value) {
+  if (value) {
+    $('#remove_redirect_btn').attr("disabled", false);
+  } else {
+    $('#remove_redirect_btn').attr("disabled", true);
+  }
+}
+
+function displayRedirectWebsiteLabel(value) {
+  if (value) {
+    redirectWebsite_lable.innerHTML = value;
+    redirectWebsite_lable.style.display = "block";
+  } else {
+    redirectWebsite_lable.style.display = "none";
+
+  }
+
+}
+
+function setRedirectWebsiteStorage() {
+  const alertItem = document.getElementById('alertRedirect');
+  alertItem.style.display = "none";
+  var value = $('#redirect_website_input').val();
+  var response = bgpage.setRedirectWebsite(value);
+  if (response.status) {
+    item = response.message;
+
+    displayRedirectWebsiteLabel(item);
+    displayRedirectWebsiteBtn(item);
+    redirect_website_input.value = ""
+
+
+  } else {
+    alertItem.innerHTML = response.message;
+    alertItem.style.display = "block";
+  }
+}
 // Add an item to list
 function addToBlacklist(val, index) {
   const item = document.createElement('li');

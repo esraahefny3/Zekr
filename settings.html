@@ -55,8 +55,24 @@
 				<input type="checkbox" class="custom-control-input" id="toggle_all_websites">
 				<label class="custom-control-label" for="toggle_all_websites">العمل على كل المواقع</label>
 			</div>
+			<div class="card-body">
+				<h3 class="card-title">Redirect Website</h3>
+				<p class="card-text">Customize a website to redirect to after closing the overlay</p>
+
+				<div id="alertRedirect" style="display: none" class="alert alert-danger"></div>
+
+				<div class="input-group mb-3">
+					<input type="text" class="form-control" placeholder="Website's URL" aria-label="Recipient's username" aria-describedby="button-addon2" id="redirect_website_input">
+					<div class="input-group-append">
+						<button class="btn btn-outline-secondary" type="button" id="add_redirect_btn">Add Website</button>
+					</div>
+					<button class="btn btn-outline-secondary" type="button" id="remove_redirect_btn">Remove Website</button>
+				</div>
+			</div>
+
 			<div id="redirectWebsite_lable" style="display: none"></div>
 		</div>
+	</div>
 
 	</div>
 	<br>

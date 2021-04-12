@@ -1,7 +1,7 @@
 //Set  onInstall setting
 //1- open the user profile page in new tab
 
-var noOfAzkar = 3;
+
 var openDashboard = function(e) {
 
   open_new_tab("dashboard.html");
@@ -25,10 +25,12 @@ chrome.contextMenus.onClicked.addListener(function(info) {
 // Check whether new version is installed
 chrome.runtime.onInstalled.addListener(function(details) {
   if (details.reason == "install") {
-    set_default_blacklist();
-    // update_inspiration();
+    setDefaultSettings();
+    setDefaultUserInfo();
+    downloadAzkar();
   } else if (details.reason == "update") {
     var thisVersion = chrome.runtime.getManifest().version;
+    downloadAzkar();
   }
 
   setFirstDayOfTheWeekStorage();
@@ -57,9 +59,12 @@ chrome.runtime.onMessage.addListener(function(message, sender, sendResponse) {
     if (get_overlay_state(sender.tab.url)) {
       let zekrData = getRandomZekr(function(zekrData) {
         console.log(zekrData)
-        zekrData.done = true;
-        zekrData.color_to_add = get_color_theme();
-        sendResponse(zekrData);
+        let response = {
+          zekrData: zekrData,
+          done: true,
+          color_to_add: get_color_theme()
+        }
+        sendResponse(response);
       });
 
       return true; // Required for async sendResponse()
@@ -91,15 +96,17 @@ chrome.runtime.onMessage.addListener(function(message, sender, sendResponse) {
     });
     return true;
   } else if (message.getAnotherZekrOverlay == true) {
-
     let zekrData = getRandomZekr(function(zekrData) {
       console.log(zekrData)
-      zekrData.done = true;
-      zekrData.color_to_add = get_color_theme();
-      // saveCurrentInfo(learn_translated_word, sender.tab.url);
-      sendResponse(zekrData);
+      let response = {
+        zekrData: zekrData,
+        done: true,
+        color_to_add: get_color_theme()
+      }
+      sendResponse(response);
     });
-    return true;
+
+    return true; // Required for async sendResponse()
   } else if (message.openSettings == true) {
     chrome.runtime.openOptionsPage();
     return true;
@@ -169,13 +176,13 @@ function check_redirect() {
 
 var overlay_state = false;
 
-function getRandomZekr(func) {
-  let zekrNo = Math.floor(Math.random() * noOfAzkar) + 1;
-  readFrombDb('azkar', 'random', callback);
-
-  function callback(zekrData) {
-    func(zekrData[zekrNo]);
+function getRandomZekr(callback) {
+  let azkarList = storage_get(RandomZekr.storageKey);
+  if (azkarList == null) {
+    downloadAzkar();
   }
+  let zekrNo = Math.floor(Math.random() * azkarList.length);
+  callback(azkarList[zekrNo]);
 }
 
 function test_words_to_learn() {
@@ -235,18 +242,37 @@ function validate_last_run(last_run, run_after) {
   return (diffMins >= run_after);
 }
 //for blacklist
-function set_default_blacklist() {
-  var settings = {
+function setDefaultSettings() {
+  let settings = {
     color_theme: "linear-gradient(to left, #ffbc00, #fe9e00, #fb7f00, #f65c00, #ee2e05)",
     update_date: null,
     all_websites: false,
     always_run: false,
     run_after: 5,
     last_run: null,
-    blacklist: [baseURL("https://www.facebook.com/"), baseURL("https://twitter.com/"), baseURL("https://www.youtube.com/")]
+    blacklist: [baseURL("https://www.facebook.com/"), baseURL("https://twitter.com/"), baseURL("https://www.youtube.com/")],
+    redirect_website: null
   }
-
   storage_set("settings", settings);
+}
+
+function setDefaultUserInfo() {
+  let user = new User();
+  user.joinDate = new Date();
+}
+
+function downloadAzkar() {
+  readFrombDb(RandomZekr.collectionId, RandomZekr.documentId, callback);
+
+  function callback(data) {
+    //save azkarListData
+    let randomZekrList = [];
+    data["azkarList"].forEach(element => {
+      let randomZekr = JSON.parse(JSON.stringify(element));
+      randomZekrList.push(randomZekr);
+    });
+    storage_set(RandomZekr.storageKey, randomZekrList);
+  }
 }
 
 function add_to_blacklist(website) {
@@ -282,10 +308,10 @@ function add_to_blacklist(website) {
 function setRedirectWebsite(website) {
   //check if it is valid or exist already..else return something that we can process
   var item = baseURL(website);
-  var user = storage_get("user");
+  var settings = storage_get("settings");
   if (item) {
-    user.redirect_website = item;
-    storage_set("user", user);
+    settings.redirect_website = item;
+    storage_set("settings", settings);
     return {
       status: true,
       message: item
@@ -310,9 +336,9 @@ function remove_from_blacklist(index) {
 
 
 function removeRedirectWebsite() {
-  var user = storage_get("user");
-  user.redirect_website = null;
-  storage_set("user", user);
+  let settings = storage_get("settings");
+  settings.redirect_website = null;
+  storage_set("settings", settings);
 }
 
 function get_color_theme() {
