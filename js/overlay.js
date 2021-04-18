@@ -174,7 +174,7 @@ if (!injectOverlayOff) {
     // Script injected, we can proceed
     if (response && response.done) {
       icon_src = chrome.runtime.getURL("images/icon48.png");
-
+   
       var inner_code = `
 			<section class="profilebox">
 					<aside class="ks_nomargin">
@@ -205,11 +205,12 @@ if (!injectOverlayOff) {
 						<h1 class="ks_center prof-name">اذكر الله</h1>
 					 </header>
 					<main class="ks-user-desc">
-						<p class="ks_center"> <span id="zekr" class="ks_uppercase" >` + response.zekrData.zekr + `</span> <span id="fadl" class="ks_uppercase">` + response.zekrData.fadl + `<span/></p>
+					  <p id="zekr" class="zekr-text">` + response.zekrData.zekr + `</p>
+            <p id="fadl" class="zekr-text">` + response.zekrData.fadl + `</p>
 					</main>
 					<footer>
 						<ul class="user-tags">
-							<li class="tag ks_uppercase" >` + response.date + `</li>
+							<li class="tag ks_uppercase" >` + response.higriDate + `</li>
 
 						</ul>
 					</footer>

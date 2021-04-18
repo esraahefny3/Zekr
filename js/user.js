@@ -1,6 +1,6 @@
 class User {
   static storageKey = "user";
-  constructor(firebaseDocRefId, userName, email, countryCode, countryName, cityName, joinDate) {
+  constructor(firebaseDocRefId, userName, email, countryCode, countryName, cityName, joinDate, totalAzkar) {
     this._firebaseDocRefId = firebaseDocRefId;
     this._userName = userName;
     this._email = email;
@@ -10,6 +10,7 @@ class User {
       stateName: cityName
     };
     this._joinDate = joinDate;
+    this._totalAzkar = totalAzkar;
   }
   set joinDate(joinDate) {
     this._joinDate = joinDate;
@@ -42,16 +43,25 @@ class User {
     this._location = location;
   }
 
+  get totalAzkar() {
+    return this._totalAzkar;
+  }
+  set totalAzkar(totalAzkar) {
+    this._totalAzkar = totalAzkar;
+  }
+
   get location() {
     return this._location;
   }
+
   toJSON() {
     return {
       firebaseDocRefId: this._firebaseDocRefId,
       userName: this._userName,
       email: this._email,
       location: this._location,
-      joinDate: this._joinDate
+      joinDate: this._joinDate,
+      totalAzkar: this._totalAzkar
     }
   }
 }

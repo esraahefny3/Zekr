@@ -28,12 +28,14 @@ chrome.runtime.onInstalled.addListener(function(details) {
     setDefaultSettings();
     setDefaultUserInfo();
     downloadAzkar();
+    storage_set('used_azkar', []);
+    setFirstDayOfTheWeekStorage();
   } else if (details.reason == "update") {
     var thisVersion = chrome.runtime.getManifest().version;
     downloadAzkar();
   }
 
-  setFirstDayOfTheWeekStorage();
+
 });
 
 function getFirstDayOfCurrentWeek() {
@@ -59,23 +61,24 @@ chrome.runtime.onMessage.addListener(function(message, sender, sendResponse) {
     if (get_overlay_state(sender.tab.url)) {
       let zekrData = getRandomZekr(function(zekrData) {
         console.log(zekrData)
-        let response = {
+
+        let higriObj=getHigri(function(higriObj){
+                  let response = {
           zekrData: zekrData,
           done: true,
-          color_to_add: get_color_theme()
+          color_to_add: get_color_theme(),
+          higriDate:higriObj?higriObj.higriDate:""
         }
+        saveAnalytics(zekrData);
         sendResponse(response);
       });
+        });
+
 
       return true; // Required for async sendResponse()
-
     }
   } else if (message.getWord == true) { //popup
     getRandomZekr(function(learned_word) {
-      date = get_date();
-      color_theme = get_color_theme();
-      learn_word_en = learned_word.english;
-      learn_translated_word = learned_word.new_word;
       saveCurrentInfo(learn_translated_word, "popup");
       // add_to_word_analytics
       set_last_run();
@@ -98,12 +101,16 @@ chrome.runtime.onMessage.addListener(function(message, sender, sendResponse) {
   } else if (message.getAnotherZekrOverlay == true) {
     let zekrData = getRandomZekr(function(zekrData) {
       console.log(zekrData)
-      let response = {
-        zekrData: zekrData,
-        done: true,
-        color_to_add: get_color_theme()
-      }
-      sendResponse(response);
+      let higriObj=getHigri(function(higriObj){
+                  let response = {
+          zekrData: zekrData,
+          done: true,
+          color_to_add: get_color_theme(),
+          higriDate:higriObj?higriObj.higriDate:""
+        }
+        saveAnalytics(zekrData);
+        sendResponse(response);
+      });
     });
 
     return true; // Required for async sendResponse()
@@ -129,6 +136,47 @@ chrome.runtime.onMessage.addListener(function(message, sender, sendResponse) {
   }
 
 });
+
+function saveAnalytics(zekrData) {
+  let currentWeek = storage_get("current_week");
+  if (currentWeek == null) {
+    setFirstDayOfTheWeekStorage();
+  } else {
+    if (getFirstDayOfCurrentWeek() != currentWeek) {
+      storage_set('used_azkar', []);
+      setFirstDayOfTheWeekStorage();
+    }
+  }
+  let usedAzkar = storage_get("used_azkar");
+  let foundFlag = 0;
+  for (i = 0; i < usedAzkar.length; i++) {
+    let zekrObj = usedAzkar[i];
+    if (zekrObj.zekr == zekrData.zekr) {
+      foundFlag = 1;
+      if (zekrObj.dayLastUpdate == new Date().toDateString()) {
+        zekrObj.dayRepetition++;
+      } else {
+        zekrObj.dayRepetition = 1;
+        zekrObj.dayLastUpdate = new Date().toDateString();
+      }
+      zekrObj.weekRepetition++;
+      usedAzkar[i] = zekrObj;
+      break;
+    }
+  }
+  if (foundFlag == 0) {
+    let zekrObj = zekrData;
+    zekrObj.dayRepetition = 1;
+    zekrObj.dayLastUpdate = new Date().toDateString();
+    zekrObj.weekRepetition = 1;
+    usedAzkar.push(zekrObj);
+  }
+  storage_set('used_azkar', usedAzkar);
+  //update total azkar
+  let user = getUser();
+  user.totalAzkar = user.totalAzkar + 1;
+  storage_set(User.storageKey, user);
+}
 
 function saveLearningTime() {
   let endTime = new Date().getTime();
@@ -178,7 +226,7 @@ var overlay_state = false;
 
 function getRandomZekr(callback) {
   let azkarList = storage_get(RandomZekr.storageKey);
-  if (azkarList == null) {
+  if (!azkarList ) {
     downloadAzkar();
   }
   let zekrNo = Math.floor(Math.random() * azkarList.length);
@@ -258,7 +306,9 @@ function setDefaultSettings() {
 
 function setDefaultUserInfo() {
   let user = new User();
-  user.joinDate = new Date();
+  user.joinDate = new Date().toDateString();
+  user.totalAzkar = 0;
+  storage_set(User.storageKey, user);
 }
 
 function downloadAzkar() {
@@ -470,7 +520,7 @@ function inspire_update_check(get_now = false) {
 
 chrome.runtime.onInstalled.addListener(function(details) {
   if (details && details.reason && details.reason == 'install') {
-    set_default_information();
+
     open_new_tab("user-profile.html");
   } else {
     //if(user information is not there)
@@ -600,8 +650,6 @@ function saveCurrentInfo(word, browsing_website) {
   let user = storage_get('user');
   user.last_used_at = today_date;
   storage_set('user', user);
-
-
 }
 
 function clearInfo() {
@@ -609,7 +657,7 @@ function clearInfo() {
 }
 
 function getUser() {
-  let user = storage_get("user");
+  let user = storage_get(User.storageKey);
   return user;
 }
 
@@ -623,6 +671,39 @@ function getBlackList() {
 
 }
 
-function getwordAnalytics() {
-  return storage_get('word_analytics');
+function getUsedAzkar() {
+  return storage_get('used_azkar');
+}
+
+function getHigri(callback) {
+            let higriObj = storage_get(Higri.storageKey);
+      if (!higriObj||higriObj.lastModify!=new Date().toDateString())
+        {
+          //UPDATE HIGRI 
+          scrapeHigri(callback);
+         }
+         else
+         {
+            callback(higriObj);
+         }
+
+}
+
+function scrapeHigri(callback) {
+  try {
+    //1- get countruCode
+    let user = getUser();
+    if (user && user.location && user.location.countryCode) {
+     scrapeHigriDateAndTimes(user.location.countryCode,callback);
+    } else {
+      console.log("Cannot find countryCode");
+      callback(null);
+    }
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+function setHigri(higriObj) {
+  storage_set(Higri.storageKey, higriObj);
 }

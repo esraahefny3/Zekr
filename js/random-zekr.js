@@ -3,10 +3,13 @@ class RandomZekr {
   static documentId = "random";
   static azkarListKey = "azkarList";
   static storageKey = "randomZekrList";
-  constructor(category, fadl, zekr) {
+  constructor(category, fadl, zekr, dayLastUpdate) {
     this._category = category;
     this._fadl = fadl;
     this._zekr = zekr;
+    this._dayRepetition = 0;
+    this._weekRepetition = 0;
+    this._dayLastUpdate = dayLastUpdate;
   }
 
   set category(category) {
@@ -29,4 +32,25 @@ class RandomZekr {
   get zekr() {
     return this._zekr;
   }
+
+  set dayRepetition(dayRepetition) {
+    this._dayRepetition = dayRepetition;
+  }
+  get dayRepetition() {
+    return this._dayRepetition;
+  }
+
+  set weekRepetition(weekRepetition) {
+    this._weekRepetition = weekRepetition;
+  }
+  get weekRepetition() {
+    return this._weekRepetition;
+  }
+  set dayLastUpdate(dayLastUpdate) {
+    this._dayLastUpdate = dayLastUpdate;
+  }
+  get dayLastUpdate() {
+    return this._dayLastUpdate;
+  }
+
 }

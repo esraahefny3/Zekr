@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="ar">
+
+<head lang="en">
+  <meta charset="UTF-8">
+  <title>الانجازات</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" type="text/css" href="css/main.css">
+  <link rel="stylesheet" type="text/css" href="css/dashboard.css">
+  <link rel="stylesheet" type="text/css" href="css/topbar.css">
+  <link rel="stylesheet" type="text/css" href="css/footer.css">
+
+  <link rel="stylesheet" type="text/css" href="vendor/fontawesome/css/all.min.css">
+  <link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.min.css">
+
+</head>
+
+<body>
+  <div class="topbar theme_color_picker">
+    <div class="container   ">
+      <div class="header-logo">
+        <span class="duolingo logo">kasahorow Learn</span>
+        <span class="lockup">Dashboard</span>
+      </div>
+    </div>
+  </div>
+  <div class="section hero theme_color_picker">
+    <div class="container height_100">
+      <h1> <span>مرحبا</span> <span id="user-name"></span> </h1>
+      <div class="subheader"><span> اجمالي ذكرك لله</span> : <span id="total-azkar"></span> </div>
+      <span class="chatbot-illustration"></span>
+    </div>
+  </div>
+  <!--<div class="section progress">
+      <div class="container">
+        <div class="text">
+          <h2>Day In Review.</h2>
+          <p>  Whether it’s catching a flight at the airport, grabbing a slice or hailing a taxi, Bots help you learn how to navigate the real world in a new language - all at your own pace.</p>
+          <p>The hardest part of learning a new language just became easy.</p>
+        </div>
+        <span class="phone-img"></span>
+        <div class="chat-bubble">
+          <div class="loading">
+            <div class="dot one"></div>
+            <div class="dot two"></div>
+            <div class="dot three"></div>
+          </div>
+        </div>
+      </div>
+    </div> -->
+  <div class="section bots">
+    <div class="container center">
+
+      <h2 class="center">ذكرك اليوم</h2>
+      <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapse_day_zekr" aria-expanded="false" aria-controls="collapse_day_words" id="today-zekr-btn">
+        اعرض
+      </button>
+
+      <div class="collapse" id="collapse_day_zekr">
+        <div class="card card-body" id="today-azkar">
+        </div>
+      </div>
+      <div class="bot-wrapper">
+        <div class="col-3">
+          <span class="icon"> <i class="fas fa-book-reader fa-10x"></i></span>
+          <h3><span id="day-azkar-count"></span></h3>
+          <p>اجمالي ذكرك لله</p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <div class="section tree">
+    <div class="container center">
+
+      <h2 class="center">ذكرك هذا الاسبوع</h2>
+      <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapse_week_zekr" aria-expanded="false" aria-controls="collapse_day_words" id="week-zekr-btn">
+        اعرض
+      </button>
+      <div class="collapse" id="collapse_week_zekr">
+        <div class="card card-body" id="week-azkar">
+        </div>
+      </div>
+      <div class="bot-wrapper">
+        <div class="col-3">
+          <span class="icon"> <i class="fas fa-book-reader fa-10x"></i></span>
+          <h3><span id="week-azkar-count"></span></h3>
+          <p>اجمالي ذكرك لله</p>
+        </div>
+
+      </div>
+      <!-- <row class="bot-wrapper ">
+        <div class="col-3">
+          <span class="icon"> <i class="fas fa-fire fa-8x paleyellow"></i></span>
+          <h3><span id="current_streak_element"></span> days</h3>
+          <p>Current Streak</p>
+        </div>
+        <div class="col-3">
+          <span class="icon"><i class="fas fa-trophy fa-8x paleyellow"></i></span>
+          <h3><span id="highest_streak_element"></span> days</h3>
+          <p>Highest Streak</p>
+        </div>
+      </row> -->
+    </div>
+
+  </div>
+
+  <div class="section footer">
+    <div class="container">
+      <h2 class="center">هلال ذكرك</h2>
+      <ul>
+        <li><a target="_blank" href="https://www.kasahorow.org/">kasahorow</a></li>
+        <li><a target="_blank" href="https://www.kasahorow.org/app/d">Dictionary</a></li>
+        <li><a target="_blank" href="https://www.kasahorow.org/app/l">Reading Club</a></li>
+        <li><a target="_blank" href="https://www.kasahorow.org/app/e">Popular</a></li>
+        <li><a target="_blank" href="https://www.facebook.com/kasahorow/">Facebook</a></li>
+        <li><a id="settings_btn" href="">Settings</a></li>
+    </div>
+  </div>
+  <script src="vendor/jquery/jquery.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.js"></script>
+  <script src="js/higri-scrapping.js"></script>
+  <script src="js/dashboard.js"></script>
+
+</body>
+
+</html>
