@@ -4,36 +4,46 @@
   "description": "w zakker",
   "version": "1.0.0",
   "manifest_version": 2,
-   "background": {
-      "page": "background.html",
-       "persistent": false
-   },
+  "background": {
+    "page": "background.html",
+    "persistent": false
+  },
   "permissions": [
-    "storage", "activeTab", "contextMenus"
+    "storage",
+    "activeTab",
+    "contextMenus"
   ],
   "content_scripts": [
-   {
-     "matches": ["\u003Call_urls>"],
-     "css": ["css/overlay.css","vendor/bootstrap/css/bootstrap.min.css"],
-     "js": ["vendor/jquery/jquery.js","js/overlay.js","js/helpers.js"],
-     "all_frames" : false,
-     "run_at" : "document_end"
-   }
+    {
+      "matches": [
+        "\u003Call_urls>"
+      ],
+      "css": [
+        "css/overlay.css",
+        "./node_modules/bootstrap/scss/bootstrap.scss"
+      ],
+      "js": [
+        "vendor/jquery/jquery.js",
+        "assets/js/overlay.js",
+        "assets/js/helpers.js"
+      ],
+      "all_frames": false,
+      "run_at": "document_end"
+    }
   ],
   "icons": {
-    "16": "images/icon16.png",
-    "48": "images/icon48.png",
-    "128": "images/icon128.png"
+    "16": "./public/images/icon16.png",
+    "48": "./public/images/icon48.png",
+    "128": "./public/images/icon128.png"
   },
   "options_ui": {
-      "chrome_style": true,
-      "open_in_tab": true,
-      "page": "settings.html"
-   },
-   "browser_action": {
-    "default_icon": "images/icon128.png",
+    "chrome_style": true,
+    "open_in_tab": true,
+    "page": "settings.html"
+  },
+  "browser_action": {
+    "default_icon": "./public/images/icon128.png",
     "default_popup": "popup.html"
   },
-"content_security_policy": "script-src 'self' https://www.gstatic.com/firebasejs/8.3.1/firebase-app.js https://www.gstatic.com/firebasejs/8.3.1/firebase-firestore.js; object-src 'self'"
-
+  "content_security_policy": "script-src 'self' https://www.gstatic.com/firebasejs/8.3.1/firebase-app.js https://www.gstatic.com/firebasejs/8.3.1/firebase-firestore.js; object-src 'self'"
 }

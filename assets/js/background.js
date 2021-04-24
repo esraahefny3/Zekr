@@ -2,7 +2,7 @@
 //1- open the user profile page in new tab
 
 
-var openDashboard = function(e) {
+var openDashboard = function (e) {
 
   open_new_tab("dashboard.html");
 
@@ -17,13 +17,13 @@ chrome.contextMenus.create({
 });
 
 
-chrome.contextMenus.onClicked.addListener(function(info) {
+chrome.contextMenus.onClicked.addListener(function (info) {
   if (info.menuItemId == "dashboardMenu") {
     openDashboard();
   }
 });
 // Check whether new version is installed
-chrome.runtime.onInstalled.addListener(function(details) {
+chrome.runtime.onInstalled.addListener(function (details) {
   if (details.reason == "install") {
     setDefaultSettings();
     setDefaultUserInfo();
@@ -55,30 +55,30 @@ function setFirstDayOfTheWeekStorage() {
 
 
 // run content script overlay.js
-chrome.runtime.onMessage.addListener(function(message, sender, sendResponse) {
+chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
 
   if (message.injectOverlay == true) {
     if (get_overlay_state(sender.tab.url)) {
-      let zekrData = getRandomZekr(function(zekrData) {
+      let zekrData = getRandomZekr(function (zekrData) {
         console.log(zekrData)
 
-        let higriObj=getHigri(function(higriObj){
-                  let response = {
-          zekrData: zekrData,
-          done: true,
-          color_to_add: get_color_theme(),
-          higriDate:higriObj?higriObj.higriDate:""
-        }
-        saveAnalytics(zekrData);
-        sendResponse(response);
-      });
+        let higriObj = getHigri(function (higriObj) {
+          let response = {
+            zekrData: zekrData,
+            done: true,
+            color_to_add: get_color_theme(),
+            higriDate: higriObj ? higriObj.higriDate : ""
+          }
+          saveAnalytics(zekrData);
+          sendResponse(response);
         });
+      });
 
 
       return true; // Required for async sendResponse()
     }
   } else if (message.getWord == true) { //popup
-    getRandomZekr(function(learned_word) {
+    getRandomZekr(function (learned_word) {
       saveCurrentInfo(learn_translated_word, "popup");
       // add_to_word_analytics
       set_last_run();
@@ -99,14 +99,14 @@ chrome.runtime.onMessage.addListener(function(message, sender, sendResponse) {
     });
     return true;
   } else if (message.getAnotherZekrOverlay == true) {
-    let zekrData = getRandomZekr(function(zekrData) {
+    let zekrData = getRandomZekr(function (zekrData) {
       console.log(zekrData)
-      let higriObj=getHigri(function(higriObj){
-                  let response = {
+      let higriObj = getHigri(function (higriObj) {
+        let response = {
           zekrData: zekrData,
           done: true,
           color_to_add: get_color_theme(),
-          higriDate:higriObj?higriObj.higriDate:""
+          higriDate: higriObj ? higriObj.higriDate : ""
         }
         saveAnalytics(zekrData);
         sendResponse(response);
@@ -203,7 +203,7 @@ function redirect() {
     chrome.tabs.query({
       active: true,
       currentWindow: true
-    }, function(tabs) {
+    }, function (tabs) {
       chrome.tabs.update(tabs[0].id, {
         url: settings.redirect_website
       });
@@ -226,7 +226,7 @@ var overlay_state = false;
 
 function getRandomZekr(callback) {
   let azkarList = storage_get(RandomZekr.storageKey);
-  if (!azkarList ) {
+  if (!azkarList) {
     downloadAzkar();
   }
   let zekrNo = Math.floor(Math.random() * azkarList.length);
@@ -242,7 +242,7 @@ function learn_word(english_word) {
   word = null;
   url = "https://a.kasahorow.org/?q=kjson&method=get.links&args=en%3E" + get_lang() + ":" + english_word + "&key=chrome&format=json"
 
-  get_response(url, function(response) {
+  get_response(url, function (response) {
     var matches = response.match(/\{([^}]+)\}/);
     if (matches) {
       var submatch = matches[1].replace(/'/g, '"');
@@ -493,7 +493,7 @@ function update_inspiration() {
   //gets the JSON feed
   url = 'http://' + language + '.kasahorow.org/app/m?format=json&source=chrome';
   xhr.open("GET", url, true);
-  xhr.onreadystatechange = function() {
+  xhr.onreadystatechange = function () {
     //Works after getting the feed
     if (xhr.readyState == 4) {
       var res = JSON.parse(xhr.response);
@@ -518,7 +518,7 @@ function inspire_update_check(get_now = false) {
 }
 
 
-chrome.runtime.onInstalled.addListener(function(details) {
+chrome.runtime.onInstalled.addListener(function (details) {
   if (details && details.reason && details.reason == 'install') {
 
     open_new_tab("user-profile.html");
@@ -614,7 +614,7 @@ function add_to_word_analytics(redirected_status, time_spent) {
   if (info) {
     var word_analytics_map = storage_get("word_analytics");
     let time_spent_in_word = time_spent / info.length;
-    info.forEach(function(item) {
+    info.forEach(function (item) {
       item['redirected_status'] = redirected_status;
       item['time_spent_in_word'] = time_spent_in_word;
       let today_date = new Date();
@@ -676,16 +676,13 @@ function getUsedAzkar() {
 }
 
 function getHigri(callback) {
-            let higriObj = storage_get(Higri.storageKey);
-      if (!higriObj||higriObj.lastModify!=new Date().toDateString())
-        {
-          //UPDATE HIGRI 
-          scrapeHigri(callback);
-         }
-         else
-         {
-            callback(higriObj);
-         }
+  let higriObj = storage_get(Higri.storageKey);
+  if (!higriObj || higriObj.lastModify != new Date().toDateString()) {
+    //UPDATE HIGRI
+    scrapeHigri(callback);
+  } else {
+    callback(higriObj);
+  }
 
 }
 
@@ -694,7 +691,7 @@ function scrapeHigri(callback) {
     //1- get countruCode
     let user = getUser();
     if (user && user.location && user.location.countryCode) {
-     scrapeHigriDateAndTimes(user.location.countryCode,callback);
+      scrapeHigriDateAndTimes(user.location.countryCode, callback);
     } else {
       console.log("Cannot find countryCode");
       callback(null);

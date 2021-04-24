@@ -1,0 +1,19 @@
+{
+  "name": "zeker",
+  "version": "1.0.0",
+  "description": "zeker",
+  "main": "index.js",
+  "repository": "https://github.com/esraahefny3/Zekr.git",
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@fortawesome/fontawesome-free": "^5.15.3",
+    "@popperjs/core": "^2.9.1",
+    "bootstrap": "^5.0.0-beta3",
+    "jquery": "^3.6.0",
+    "sass": "^1.32.11"
+  },
+  "scripts": {
+    "sass": "node-sass -rw assets/stylesheet -o  public/css --output-style compressed"
+  }
+}

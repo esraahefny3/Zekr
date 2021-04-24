@@ -1,0 +1,15 @@
+@import "./custom-variables";
+
+@import "../../node_modules/bootstrap/scss/bootstrap.scss";
+@import "../../node_modules/bootstrap/dist/css/bootstrap.rtl.min.css";
+
+// Theme
+@import "./theme/theme";
+
+//Layout
+@import "./layout/layout-index";
+
+@import "./base/_base-index";
+
+//components
+@import "./components/components-index";

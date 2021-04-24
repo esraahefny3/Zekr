@@ -1,0 +1,27 @@
+.aside {
+  @extend .bg-primary-light;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  width: 17.813rem;
+  max-width: 100%;
+  border-left: 1px solid rgba(0, 0, 0, 0.2);
+  &__icon {
+    position: absolute;
+    right: 1rem;
+    top: 0.8rem;
+  }
+
+  &__logo {
+    margin-bottom: 2.5rem;
+    img {
+      width: 10rem;
+    }
+  }
+
+  button {
+    text-align: right;
+    position: relative;
+    padding-right: 3rem;
+  }
+}
