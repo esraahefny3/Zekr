@@ -1,0 +1,38 @@
+[type="email"],
+[type="number"],
+[type="tel"],
+[type="url"] {
+  direction: inherit;
+}
+
+// RTL Input group
+.input-group {
+  &:not(.has-validation)
+    > :not(:last-child):not(.dropdown-toggle):not(.dropdown-menu),
+  .input-group:not(.has-validation) > .dropdown-toggle:nth-last-child(n + 3) {
+    border-top-right-radius: 0.25rem;
+    border-bottom-right-radius: 0.25rem;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+
+  > :not(:first-child):not(.dropdown-menu):not(.valid-tooltip):not(.valid-feedback):not(.invalid-tooltip):not(.invalid-feedback) {
+    margin-right: -1px;
+    margin-left: auto;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border-top-left-radius: 0.25rem;
+    border-bottom-left-radius: 0.25rem;
+  }
+}
+
+// RTL checkbox
+.form-check {
+  padding-right: 1.5em;
+  padding-left: 0;
+  .form-check-input {
+    float: right;
+    margin-right: -1.5em;
+    margin-left: auto;
+  }
+}

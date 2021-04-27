@@ -112,18 +112,18 @@ function initSettings() {
 
   });
 
-  all_websites_toggle.addEventListener('change', function(e) {
+  all_websites_toggle.addEventListener('change', function (e) {
     bgpage.toggle_all_websites_status();
   });
 
-  always_show.addEventListener('change', function(e) {
+  always_show.addEventListener('change', function (e) {
     minutes_input.value = 0;
     bgpage.change_frequency(0);
 
   });
 
 
-  minutes_input.addEventListener('change', function(e) {
+  minutes_input.addEventListener('change', function (e) {
     value = this.value;
     if (value >= 0 && value <= 120) {
       bgpage.change_frequency(value);
@@ -133,14 +133,14 @@ function initSettings() {
 
   });
 
-  input_website.addEventListener('keypress', function(e) {
+  input_website.addEventListener('keypress', function (e) {
     var key = e.which || e.keyCode;
     if (key === 13) { // 13 is enter
       setStorage();
     }
   });
 
-  redirect_website_input.addEventListener('keypress', function(e) {
+  redirect_website_input.addEventListener('keypress', function (e) {
     var key = e.which || e.keyCode;
     if (key === 13) { // 13 is enter
       setRedirectWebsiteStorage();
@@ -216,9 +216,9 @@ function addToBlacklist(val, index) {
 
   // Delete Image
   const deleted = document.createElement("span");
-  deleted.className = "badge badge-primary badge-pill cursor-pointer";
+  deleted.className = "badge bg-danger rounded-circle  cursor-pointer";
   deleted.id = "delete_" + index;
-  deleted.innerHTML = 'x';
+  deleted.innerHTML = `<i class="fas fa-trash"></i>`;
 
   // Item Delete
   deleted.addEventListener('click', itemDeleted);
@@ -243,7 +243,7 @@ function itemDeleted() {
 
 
 
-document.addEventListener("DOMContentLoaded", function(event) {
+document.addEventListener("DOMContentLoaded", function (event) {
   if (notloaded) {
     getStorage();
     initSettings();

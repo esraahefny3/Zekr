@@ -1,7 +1,7 @@
-$primary: #85ab84;
-$primary-light: #f8fff7;
+$primary: #6abcad;
+$primary-light: #eff6f5;
 $primary-dark: #577c57;
-$secondary: #ffd180;
+$secondary: #f09c28;
 $secondary-light: #ffffb1;
 $secondary-dark: #caa052;
 $warning: #f9b738;
@@ -55,3 +55,20 @@ $theme-colors: (
 //fonts
 $font-family-base: "Mada", sans-serif;
 $font-size-base: 1rem;
+$font-color-base: $gray-700;
+
+$spacer: 1rem;
+$spacers: (
+  0: 0,
+  1: $spacer / 4,
+  2: $spacer / 2,
+  3: $spacer,
+  4: $spacer * 1.5,
+  5: $spacer * 3,
+  6: $spacer * 4,
+  7: $spacer * 5,
+  8: $spacer * 6,
+  9: $spacer * 7,
+  16: 16.66667%,
+  25: 25%,
+) !default;

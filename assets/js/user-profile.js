@@ -9,7 +9,7 @@
  //UPLOADE IMAGE
  function initFileUpload() {
    //listener to change event of file upload input
-   $('#upload').on('change', function(e) {
+   $('#upload').on('change', function (e) {
      readURL(e);
    });
  }
@@ -20,7 +20,7 @@
    if (e.target.files && e.target.files[0]) {
      var reader = new FileReader();
 
-     reader.onload = function(e) {
+     reader.onload = function (e) {
        $(profilePicId)
          .attr('src', e.target.result);
      };
@@ -31,7 +31,7 @@
 
  //user data form submit listener
  function initUserDataFormSubmitListener() {
-   $('#form-user-info').submit(function(e) {
+   $('#form-user-info').submit(function (e) {
      e.preventDefault();
      let user = storage_get(User.storageKey);
      user.userName = $(inputUserNameId).val();
@@ -70,7 +70,7 @@
    var sel = document.getElementById(elem);
    var fragment = document.createDocumentFragment();
 
-   array.forEach(function(jsonObj, index) {
+   array.forEach(function (jsonObj, index) {
      var opt = document.createElement('option')
      opt.innerHTML = jsonObj['name'];
      if (jsonObj['sortname']) {
@@ -84,7 +84,7 @@
 
    sel.appendChild(fragment);
  }
- $('#country-select').on('change', function(e) {
+ $('#country-select').on('change', function (e) {
    let countryId = $("#country-select option:selected").attr('country-id');
    //FILTER WITH COUNTRY ID
    // console.log(states["" + value + ""]);
@@ -93,7 +93,7 @@
    createOption('state-select', selectedStates);
 
  });
- $('#state-select').on('change', function(e) {
+ $('#state-select').on('change', function (e) {
    var value = $(this).val();
 
 
@@ -118,7 +118,7 @@
      DOCUMENT READY
  * ========================================== */
 
- $(function($) {
+ $(function ($) {
    init();
  });
  /*  ==========================================
@@ -129,7 +129,7 @@
    // userObject = JSON.parse(JSON.stringify(user));
    storage_set(User.storageKey, user);
    $.ajax({
-     success: function(data) {
+     success: function (data) {
        $(dialogDataSavedId).modal('show');
      }
    });
@@ -160,6 +160,6 @@
  }
 
  //listener to click event on detect user location link
- $('#link-country-auto-detect').click(function() {
+ $('#link-country-auto-detect').click(function () {
    autoDetectUserCountry();
  });

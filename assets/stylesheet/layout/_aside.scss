@@ -3,9 +3,9 @@
   position: fixed;
   top: 0;
   bottom: 0;
-  width: 17.813rem;
+  width: 15%;
   max-width: 100%;
-  border-left: 1px solid rgba(0, 0, 0, 0.2);
+  border-left: 1px solid rgba(0, 0, 0, 0.08);
   &__icon {
     position: absolute;
     right: 1rem;
@@ -15,13 +15,14 @@
   &__logo {
     margin-bottom: 2.5rem;
     img {
-      width: 10rem;
+      width: 5rem;
     }
   }
 
-  button {
+  .nav-link {
     text-align: right;
     position: relative;
     padding-right: 3rem;
+    color: $font-color-base;
   }
 }

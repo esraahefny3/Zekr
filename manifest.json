@@ -19,8 +19,8 @@
         "\u003Call_urls>"
       ],
       "css": [
-        "css/overlay.css",
-        "./node_modules/bootstrap/scss/bootstrap.scss"
+        "./public/css/main.css",
+        "css/overlay.css"
       ],
       "js": [
         "vendor/jquery/jquery.js",
@@ -37,7 +37,7 @@
     "128": "./public/images/icon128.png"
   },
   "options_ui": {
-    "chrome_style": true,
+    "chrome_style": false,
     "open_in_tab": true,
     "page": "settings.html"
   },

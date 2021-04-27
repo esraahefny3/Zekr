@@ -370,7 +370,7 @@ function setRedirectWebsite(website) {
   } else {
     return {
       status: false,
-      message: "Your input is not a valid website. Please copy paste the URL from Address bar."
+      message: "الموقع الذي ادخلته غير صحيح من فضلك انسخ عنون الموقع ثم الصقه هنا"
     };
   }
 }
