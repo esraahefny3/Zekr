@@ -1,11 +1,13 @@
 $primary: #6abcad;
 $primary-light: #eff6f5;
-$primary-dark: #577c57;
+$primary-medium: #9cefdf;
+$primary-dark: #388c7e;
 $secondary: #f09c28;
 $secondary-light: #ffffb1;
-$secondary-dark: #caa052;
-$warning: #f9b738;
-$danger: #d17379;
+$secondary-medium: #ffcd5b;
+$secondary-dark: #b86e00;
+$warning: #ebbf00;
+$danger: #fa5264;
 $success: #0a7368;
 
 // scss-docs-start gray-color-variables
@@ -40,6 +42,7 @@ $grays: (
 $theme-colors: (
   "primary": $primary,
   "primary-light": $primary-light,
+  "primary-medium": $primary-light,
   "primary-dark": $primary-dark,
   "secondary": $secondary,
   "secondary-light": $secondary-light,

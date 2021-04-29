@@ -12,7 +12,7 @@ function init() {
   displaytodayZekrSection();
   displayWeekZekrSection()
 
-  document.addEventListener('click', function(e) {
+  document.addEventListener('click', function (e) {
     if (e.target) {
       if (e.target.id == 'settings_btn') {
         chrome.runtime.sendMessage({
@@ -50,7 +50,7 @@ function displayUserData() {
 function displaytodayZekrSection() {
   let usedAzkar = bgpage.getUsedAzkar();
   if (usedAzkar) {
-    let dayAzkarCountElement = document.getElementById('day-azkar-count');
+    let dayAzkarCountElement = $('.L-day-azkar-count');
     let dayZekr = createDisplayTodayAzkar(usedAzkar);
     if (dayZekr) {
       if (dayZekr.innerCode) {
@@ -60,7 +60,9 @@ function displaytodayZekrSection() {
         let dayAzkarElement = document.getElementById('today-azkar');
         dayAzkarElement.innerHTML = dayZekr.innerCode;
       }
-      dayAzkarCountElement.innerHTML = dayZekr.count;
+      $.each(dayAzkarCountElement, (i, item) => {
+        return item.innerHTML = dayZekr.count
+      })
     }
   }
 
@@ -69,7 +71,7 @@ function displaytodayZekrSection() {
 function displayWeekZekrSection() {
   let usedAzkar = bgpage.getUsedAzkar();
   if (usedAzkar) {
-    let weekAzkarCountElement = document.getElementById('week-azkar-count');
+    let weekAzkarCountElement = $('.L-week-azkar-count');
     let weekZekr = createDisplayWeekAzkar(usedAzkar);
     if (weekZekr) {
       if (weekZekr.innerCode) {
@@ -79,7 +81,9 @@ function displayWeekZekrSection() {
         let weekAzkarElement = document.getElementById('week-azkar');
         weekAzkarElement.innerHTML = weekZekr.innerCode;
       }
-      weekAzkarCountElement.innerHTML = weekZekr.count;
+      $.each(weekAzkarCountElement, (i, item) => {
+        return item.innerHTML = weekZekr.count
+      })
     }
   }
 
@@ -93,11 +97,15 @@ function createDisplayTodayAzkar(usedAzkarArray) {
       innerCode: '',
       count: 0
     }
-    usedAzkarArray.forEach(function(item) {
+    usedAzkarArray.forEach(function (item) {
       if (item.dayLastUpdate == new Date().toDateString()) {
         usedAzkar.count += item.dayRepetition;
         if (item.zekr && typeof item.zekr !== 'undefined' && item.zekr.trim() !== '')
-          usedAzkar.innerCode += '<button class="center new-bots">' + item.zekr + ': <span style=" font-weight: bold;">' + item.dayRepetition + '<span>' + '</button>'
+          usedAzkar.innerCode += `
+                                <li class="list-group-item d-flex justify-content-between align-items-start bg-light mb-2 border-1 rounded">
+                                  <div class="ms-auto"> ${item.zekr} </div>
+                                  <span class="badge bg-secondary rounded-pill me-2">${item.dayRepetition}</span>
+                                </li>`
       }
     });
 
@@ -112,15 +120,22 @@ function createDisplayWeekAzkar(usedAzkarArray) {
       innerCode: '',
       count: 0
     }
-    usedAzkarArray.forEach(function(item) {
+    usedAzkarArray.forEach(function (item) {
       usedAzkar.count += item.weekRepetition;
       if (item.zekr && typeof item.zekr !== 'undefined' && item.zekr.trim() !== '')
-        usedAzkar.innerCode += '<button class="center new-bots">' + item.zekr + ': <span style=" font-weight: bold;">' + item.weekRepetition + '<span>' + '</button>';
+        usedAzkar.innerCode += `<li class="list-group-item d-flex justify-content-between align-items-start bg-light mb-2 border-1 rounded">
+                                  <div class="ms-auto"> ${item.zekr} </div>
+                                  <span class="badge bg-secondary rounded-pill me-2">${item.weekRepetition}</span>
+                                </li>`;
+
+
+
+
     });
   }
   return usedAzkar;
 }
-document.addEventListener("DOMContentLoaded", function(event) {
+document.addEventListener("DOMContentLoaded", function (event) {
   // scrapeHigriDateAndTimes();
   init();
 

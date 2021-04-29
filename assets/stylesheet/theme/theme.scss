@@ -1,9 +1,19 @@
 body {
-  color: $gray-700;
+  color: $font-color-base;
   font-family: $font-family-base;
   font-size: $font-size-base;
+  overflow-x: hidden;
 }
 
 img {
   object-fit: contain;
+}
+
+.main-content {
+  width: 85%;
+  margin-right: auto;
+}
+
+.cursor-pointer {
+  cursor: pointer;
 }

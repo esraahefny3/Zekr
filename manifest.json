@@ -19,7 +19,6 @@
         "\u003Call_urls>"
       ],
       "css": [
-        "./public/css/main.css",
         "css/overlay.css"
       ],
       "js": [
