@@ -1,3 +1,3 @@
 "# Zekr" 
-yarn 
-yarn sass
+# yarn
+# yarn sass
