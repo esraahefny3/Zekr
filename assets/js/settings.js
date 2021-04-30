@@ -210,13 +210,13 @@ function setRedirectWebsiteStorage() {
 // Add an item to list
 function addToBlacklist(val, index) {
   const item = document.createElement('li');
-  item.className = 'list-group-item d-flex justify-content-between align-items-center';
+  item.className = 'list-group-item d-flex align-items-center mb-2 border-1 rounded';
   item.id = 'blacklistItem_' + index;
-  item.innerHTML = val;
+  item.innerHTML = `<div class="ms-auto">${val}</div>`;
 
   // Delete Image
-  const deleted = document.createElement("span");
-  deleted.className = "badge bg-danger rounded-circle  cursor-pointer";
+  const deleted = document.createElement("button");
+  deleted.className = "btn btn-danger rounded-circle btn-sm";
   deleted.id = "delete_" + index;
   deleted.innerHTML = `<i class="fas fa-trash"></i>`;
 

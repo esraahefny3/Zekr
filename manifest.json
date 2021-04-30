@@ -19,10 +19,11 @@
         "\u003Call_urls>"
       ],
       "css": [
-        "css/overlay.css"
+        "./public/css/overlay.css"
       ],
       "js": [
-        "vendor/jquery/jquery.js",
+        "./node_modules/jquery/dist/jquery.min.js",
+        "./node_modules/@fortawesome/fontawesome-free/js/all.min.js",
         "assets/js/overlay.js",
         "assets/js/helpers.js"
       ],

@@ -102,7 +102,7 @@ function createDisplayTodayAzkar(usedAzkarArray) {
         usedAzkar.count += item.dayRepetition;
         if (item.zekr && typeof item.zekr !== 'undefined' && item.zekr.trim() !== '')
           usedAzkar.innerCode += `
-                                <li class="list-group-item d-flex justify-content-between align-items-start bg-light mb-2 border-1 rounded">
+                                <li class="list-group-item d-flex align-items-start mb-2 border-1 rounded">
                                   <div class="ms-auto"> ${item.zekr} </div>
                                   <span class="badge bg-secondary rounded-pill me-2">${item.dayRepetition}</span>
                                 </li>`
@@ -123,7 +123,10 @@ function createDisplayWeekAzkar(usedAzkarArray) {
     usedAzkarArray.forEach(function (item) {
       usedAzkar.count += item.weekRepetition;
       if (item.zekr && typeof item.zekr !== 'undefined' && item.zekr.trim() !== '')
-        usedAzkar.innerCode += `<li class="list-group-item d-flex justify-content-between align-items-start bg-light mb-2 border-1 rounded">
+        usedAzkar.innerCode += `<li class="list-group-item d-flex justify-content-between align-items-start
+                                           mb-2 border-1 rounded
+                                          "
+                                >
                                   <div class="ms-auto"> ${item.zekr} </div>
                                   <span class="badge bg-secondary rounded-pill me-2">${item.weekRepetition}</span>
                                 </li>`;
