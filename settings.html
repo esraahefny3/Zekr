@@ -5,138 +5,144 @@
 	<title>ذكر - الاعدادات</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<link href="css/settings.css" media="screen" rel="stylesheet" />
-	<link rel="stylesheet" type="text/css" href="css/topbar.css">
-	<link rel="stylesheet" type="text/css" href="css/footer.css">
-	<link rel="stylesheet" type="text/css" href="css/main.css">
-	<link rel="stylesheet" type="text/css" href="vendor/fontawesome/css/all.min.css">
-	<link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.min.css">
-
-
+	<link rel="stylesheet" type="text/css" href="./public/css/main.css">
 </head>
 
 <body>
-	<div class="topbar theme_color_picker">
-		<div class="container   height: 100%;">
-			<div class="header-logo">
-				<span class="duolingo logo">ذكر</span>
-				<span class="lockup">الاعدادات</span>
-			</div>
+	<!-- START SIDEBAR -->
+	<aside class="aside">
+		<div class="aside__logo mt-3 text-center">
+			<img src="./public/images/logo.png" alt="logo" />
 		</div>
-	</div>
-	<div class="section hero theme_color_picker">
-		<div class="container height_100">
-			<h1 id="user_name">ضبط الاعدادات</h1>
-			<span class="chatbot-illustration"></span>
-		</div>
-	</div>
-	<div class="section">
-		<div class="container">
 
-			<div class="card-body">
-				<h3 class="card-title">ضبط المواقع </h3>
-				<p class="card-text">من فضلك اختار المواقع التي سيتم ظهؤر الاذكار عند زيارتها</p>
+		<nav class="nav flex-column nav-pills e-3">
+			<a href="./dashboard.html" class="nav-link" type="button">
+				<i class="aside__icon fas fa-tachometer-alt ml-3"></i>
+				لوحة التحكم
+			</a>
 
-				<div id="alert" style="display: none" class="alert alert-danger"></div>
+			<a href="./user-profile.html" class="nav-link" type="button">
+				<i class="aside__icon fas fa-user-circle"></i>
+				الصفحة الشخصية
+			</a>
 
-				<div class="input-group mb-3">
-					<input type="text" class="form-control" placeholder="Website's URL" aria-label="Recipient's username" aria-describedby="button-addon2" id="input_website">
-					<div class="input-group-append">
-						<button class="btn btn-outline-secondary" type="button" id="add_to_list">Add Website</button>
+			<a id="settings_btn" href="./settings.html" class="nav-link active" type="button">
+				<i class="aside__icon fas fa-cogs"></i>
+				الأعدادات
+			</a>
+		</nav>
+	</aside>
+	<!--END SIDEBAR -->
+
+	<article class="main-content">
+		<!--Start Header -->
+		<header class="header ">
+			<h2 class="text-center">
+				<i class="fas fa-cogs"></i>
+				الأعدادات
+			</h2>
+		</header>
+		<!--END Header -->
+
+		<main>
+			<h1 id="user_name" class="text-primary text-center">ضبط الاعدادات</h1>
+
+			<article class="w-50 mx-auto my-5">
+				<section class="mb-5">
+					<h4 class="text-secondary">ضبط المواقع </h4>
+					<label class="form-label">من فضلك اختار المواقع التي سيتم ظهؤر الاذكار عند زيارتها </label>
+					<div class="input-group">
+						<input type="text" class="form-control" placeholder="إدخل هنا رابط الموقع" aria-label="Recipient's username"
+							aria-describedby="button-addon2" id="input_website">
+						<button class="btn btn-primary" type="button" id="add_to_list">إضافة الموقع</button>
 					</div>
-				</div>
-
-				<ul class="list-group" id="blacklist">
-					<!-- the list will be added by settings.js -->
-				</ul>
-			</div>
-
-			<div class="custom-control custom-switch">
-				<input type="checkbox" class="custom-control-input" id="toggle_all_websites">
-				<label class="custom-control-label" for="toggle_all_websites">العمل على كل المواقع</label>
-			</div>
-			<div class="card-body">
-				<h3 class="card-title">Redirect Website</h3>
-				<p class="card-text">Customize a website to redirect to after closing the overlay</p>
-
-				<div id="alertRedirect" style="display: none" class="alert alert-danger"></div>
-
-				<div class="input-group mb-3">
-					<input type="text" class="form-control" placeholder="Website's URL" aria-label="Recipient's username" aria-describedby="button-addon2" id="redirect_website_input">
-					<div class="input-group-append">
-						<button class="btn btn-outline-secondary" type="button" id="add_redirect_btn">Add Website</button>
+					<div id="alert" style="display: none" class="text-danger"></div>
+					<div class="form-check custom-switch">
+						<input type="checkbox" class="form-check-input" id="toggle_all_websites">
+						<label class="form-check-label" for="toggle_all_websites">العمل على كل المواقع</label>
 					</div>
-					<button class="btn btn-outline-secondary" type="button" id="remove_redirect_btn">Remove Website</button>
-				</div>
-			</div>
+					<ul class="list-group card p-3 list-group-numbered list-group-flush mt-3 bg-light rounded my-3"
+						id="blacklist">
+						<!-- the list will be added by settings.js -->
+					</ul>
 
-			<div id="redirectWebsite_lable" style="display: none"></div>
-		</div>
-	</div>
+				</section>
 
-	</div>
-	<br>
-	<div class="section bots">
-		<div class="container center">
-			<form>
-				<h4>سيتم ظهور الاذكار كل
-					<input id="minutes_input" name="number" type="number" min="0" max="120" data-bv-integer-message="The value is not an integer" value="10" step="5" /> دقيقة
-				</h4>
-			</form>
-			<div class="custom-control custom-switch">
-				<input type="checkbox" class="custom-control-input" id="always_word_switch">
-				<label class="custom-control-label" for="always_word_switch">الظهور دائما</label>
-			</div>
-		</div>
-		<br><br>
-		<div class="container">
-			<div class="row">
+
+				<section class="mb-5">
+					<h4 class="text-secondary">إعادة توجيه المواقع</h4>
+					<label class="form-label">قم بتخصيص موقع ويب لإعادة التوجيه إليه بعد إغلاق الذكر </label>
+					<div class="input-group">
+						<input type="text" class="form-control" placeholder="إدخل هنا رابط الموقع" aria-label="Recipient's username"
+							aria-describedby="button-addon2" id="redirect_website_input">
+
+						<button class="btn btn-primary" type="button" id="add_redirect_btn">
+							<i class="fas fa-plus"></i>
+							أضف
+						</button>
+						<button class="btn btn-danger" type="button" id="remove_redirect_btn">
+							<i class="fas fa-trash"></i>
+							إحذف
+						</button>
+					</div>
+					<div id="alertRedirect" style="display: none" class="text-danger"></div>
+					<div id="redirectWebsite_lable" style="display: none"></div>
+
+				</section>
+
+				<section class="mb-5">
+					<h4 class="text-secondary mb-2"> ضبط مدة ظهور الإذكار</h4>
+					<form>
+						<h5>سيتم ظهور الاذكار كل
+							<input id="minutes_input" name="number" type="number" min="0" max="120"
+								data-bv-integer-message="The value is not an integer" value="10" step="5" /> دقيقة
+						</h5>
+					</form>
+					<div class="custom-control custom-switch">
+						<input type="checkbox" class="form-check-input" id="always_word_switch">
+						<label class="form-check-label" for="always_word_switch">الظهور دائما</label>
+					</div>
+				</section>
+			</article>
+		</main>
+	</article>
+
+	<div class="container d-none">
+		<div class="row">
+			<div class="col-md-6">
 				<div class="col-md-6">
-					<div class="col-md-6">
-						<div class="card-header">
-							<b>Theme Color: </b>
+					<div class="card-header">
+						<b>Theme Color: </b>
+					</div>
+					<div id="theme_color_picker" class="card-body">
+						<div class="wrapper">
+							<div class="box" id="summertime"></div>
 						</div>
-						<div id="theme_color_picker" class="card-body">
-							<div class="wrapper">
-								<div class="box" id="summertime"></div>
-							</div>
-							<div class="wrapper">
-								<div class="box" id="africanstyle"></div>
-							</div>
-							<div class="wrapper">
-								<div class="box" id="bluewave"></div>
-							</div>
-							<div class="wrapper">
-								<div class="box" id="party"></div>
-							</div>
-							<div class="wrapper">
-								<div class="box" id="stars"></div>
-							</div>
+						<div class="wrapper">
+							<div class="box" id="africanstyle"></div>
+						</div>
+						<div class="wrapper">
+							<div class="box" id="bluewave"></div>
+						</div>
+						<div class="wrapper">
+							<div class="box" id="party"></div>
+						</div>
+						<div class="wrapper">
+							<div class="box" id="stars"></div>
 						</div>
 					</div>
 				</div>
 			</div>
-
-		</div>
-
-	</div>
-
-	<div class="section footer">
-		<div class="container">
-			<h2 class="center">وذكر</h2>
-			<ul>
-				<!-- <li><a target="_blank" href="https://www.kasahorow.org/">kasahorow</a></li>
-				<li><a target="_blank" href="https://www.kasahorow.org/app/d">Dictionary</a></li>
-				<li><a target="_blank" href="https://www.kasahorow.org/app/l">Reading Club</a></li>
-				<li><a target="_blank" href="https://www.kasahorow.org/app/e">Popular</a></li>
-				<li><a target="_blank" href="https://www.facebook.com/kasahorow/">Facebook</a></li> -->
-				<li><a id="settings_btn" href="">Settings</a></li>
 		</div>
 	</div>
+
+
+
 </body>
-<script src="vendor/jquery/jquery.js"></script>
-<script src="vendor/bootstrap/js/bootstrap.js"></script>
-<script src="js/initialize_theme.js"></script>
-<script type="text/javascript" src="js/settings.js"></script>
+<script src="./node_modules/jquery/dist/jquery.min.js"> </script>
+<script src="/node_modules/bootstrap/dist/js/bootstrap.min.js"> </script>
+<script src="./node_modules/@fortawesome/fontawesome-free/js/all.min.js"> </script>
+<!-- <script src="js/initialize_theme.js"></script> -->
+<script type="text/javascript" src="./assets/js/settings.js"></script>
 
 </html>

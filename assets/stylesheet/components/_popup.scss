@@ -1,0 +1,48 @@
+.popup {
+  &.profilebox {
+    min-width: 40rem;
+    background-image: url("../images/pattern.jpg") !important;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    text-align: center;
+    padding: 1rem 2rem 2rem;
+    position: relative;
+  }
+  &__aside {
+    ul {
+      position: absolute;
+      left: 1rem;
+      list-style: none;
+      padding: 0;
+      li {
+        border: none;
+        margin-bottom: 0.5rem;
+        width: 3rem;
+        height: 3rem;
+
+        padding: 0.5rem;
+        border-radius: 50%;
+        color: white;
+        text-align: center;
+        cursor: pointer;
+        font-size: 1.5rem;
+        line-height: 2rem;
+        &:first-child {
+          background: $primary;
+        }
+        &:nth-child(2) {
+          background-color: $secondary;
+        }
+        &:last-child {
+          background-color: $danger;
+        }
+      }
+    }
+  }
+  &__content {
+    width: 25rem;
+    margin: 0 auto;
+    text-align: center;
+  }
+}
