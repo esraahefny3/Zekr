@@ -27,10 +27,7 @@ chrome.runtime.onInstalled.addListener(function(details) {
   if (details.reason == "install") {
     setDefaultSettings();
     setDefaultUserInfo();
-    //download random zekr from firestore
-    storage_set('used_azkar', []);
-    setFirstDayOfTheWeekStorage();
-    setSabahZekrReminder();
+    updateCurrentWeekDateAndData();
   } else if (details.reason == "update") {
     var thisVersion = chrome.runtime.getManifest().version;
     //download random zekr from firestore
@@ -60,7 +57,7 @@ function setSabahZekrReminder() {
               color_to_add: get_color_theme(),
               higriDate: response.higriObj ? response.higriObj.higriDate : ""
             }
-            // saveAnalytics(zekrData);
+
             chrome.tabs.sendMessage(tabs[0].id, {
               action: "open_sabah_overlay",
               response: dataResponse
@@ -76,9 +73,31 @@ function setSabahZekrReminder() {
   }, 1000 * 60);
 }
 
+function checkSabahZekrDone() {
+  return SabahZekr.dayDoneDate == new Date().toDateString();
+}
 
+function checkMasaaZekrDone() {
+  return MasaaZekr.dayDoneDate == new Date().toDateString();
+}
+
+function getWeekSabahZekr() {
+  let zekrWeekDone = storage_get(SabahZekr.weekAnalyticsStorageKey);
+  if (!zekrWeekDone) {
+    zekrWeekDone = 0;
+  }
+  return zekrWeekDone;
+}
+
+function getWeekMasaaZekr() {
+  let zekrWeekDone = storage_get(MasaaZekr.weekAnalyticsStorageKey);
+  if (!zekrWeekDone) {
+    zekrWeekDone = 0;
+  }
+  return zekrWeekDone;
+}
 async function checkSabahZekrTime() {
-  if (SabahZekr.dayDone != new Date().toDateString()) {
+  if (!checkSabahZekrDone()) {
     return getHigri().then(
       function(higriObj) {
         if (higriObj && higriObj.asrTime && higriObj.fajrTime) {
@@ -121,7 +140,7 @@ function setMasaaZekrReminder() {
               color_to_add: get_color_theme(),
               higriDate: response.higriObj ? response.higriObj.higriDate : ""
             }
-            // saveAnalytics(zekrData);
+
             chrome.tabs.sendMessage(tabs[0].id, {
               action: "open_masaa_overlay",
               response: dataResponse
@@ -139,7 +158,7 @@ function setMasaaZekrReminder() {
 
 
 async function checkMasaaZekrTime() {
-  if (MasaaZekr.dayDone != new Date().toDateString()) {
+  if (!checkMasaaZekrDone()) {
     return getHigri().then(
       function(higriObj) {
         if (higriObj && higriObj.asrTime && higriObj.fajrTime) {
@@ -248,7 +267,6 @@ chrome.runtime.onMessage.addListener(function(message, sender, sendResponse) {
             color_to_add: get_color_theme(),
             higriDate: higriObj ? higriObj.higriDate : ""
           }
-          // saveAnalytics(zekrData);
           sendResponse(response);
         });
     });
@@ -263,7 +281,6 @@ chrome.runtime.onMessage.addListener(function(message, sender, sendResponse) {
             color_to_add: get_color_theme(),
             higriDate: higriObj ? higriObj.higriDate : ""
           }
-          // saveAnalytics(zekrData);
           sendResponse(response);
         });
     });
@@ -289,32 +306,55 @@ chrome.runtime.onMessage.addListener(function(message, sender, sendResponse) {
     return true;
   } else if (message.sabahZekrDone == true) {
     setSabahDayDoneDate(message.sabahDayDoneDate);
+    saveSabahMasaaAnalytics(SabahZekr.weekAnalyticsStorageKey);
     return true;
   } else if (message.masaaZekrDone == true) {
-    return setMasaaDayDoneDate(message.masaaDayDoneDate);
+    setMasaaDayDoneDate(message.masaaDayDoneDate);
+    saveSabahMasaaAnalytics(MasaaZekr.weekAnalyticsStorageKey);
     return true;
   }
 });
 
-function setSabahDayDoneDate(date) {
-  SabahZekr.dayDone = date;
-
-}
-
-function setMasaaDayDoneDate(date) {
-  MasaaZekr.dayDone = date;
-}
-
-function saveAnalytics(zekrData) {
+function updateCurrentWeekDateAndData() {
   let currentWeek = storage_get("current_week");
   if (currentWeek == null) {
+    storage_set(SabahZekr.weekAnalyticsStorageKey, "0");
+    storage_set(MasaaZekr.weekAnalyticsStorageKey, "0");
+    storage_set('used_azkar', []);
     setFirstDayOfTheWeekStorage();
   } else {
     if (getFirstDayOfCurrentWeek() != currentWeek) {
+      storage_set(SabahZekr.weekAnalyticsStorageKey, "0");
+      storage_set(MasaaZekr.weekAnalyticsStorageKey, "0");
       storage_set('used_azkar', []);
       setFirstDayOfTheWeekStorage();
     }
   }
+}
+
+function saveSabahMasaaAnalytics(storageKey) {
+  updateCurrentWeekDateAndData();
+  let zekrWeekDone = storage_get(storageKey);
+  if (!zekrWeekDone) {
+    zekrWeekDone = 1;
+  } else {
+
+    zekrWeekDone = parseInt(zekrWeekDone, 10) + 1;
+  }
+  storage_set(storageKey, zekrWeekDone);
+}
+
+function setSabahDayDoneDate(date) {
+  SabahZekr.dayDoneDate = date;
+
+}
+
+function setMasaaDayDoneDate(date) {
+  MasaaZekr.dayDoneDate = date;
+}
+
+function saveAnalytics(zekrData) {
+  updateCurrentWeekDateAndData();
   let usedAzkar = storage_get("used_azkar");
   let foundFlag = 0;
   for (i = 0; i < usedAzkar.length; i++) {

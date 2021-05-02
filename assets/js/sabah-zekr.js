@@ -2,6 +2,7 @@ class SabahZekr extends Zekr {
   static documentId = "sabah";
   static azkarListKey = "sabahZekrList";
   static storageKey = "sabahZekrList";
+  static weekAnalyticsStorageKey = "weekSabahDoneCount";
   static dayDoneDate = "";
   constructor(fadl, zekr, repetition) {
     super(fadl, zekr);

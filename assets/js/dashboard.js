@@ -12,7 +12,7 @@ function init() {
   displaytodayZekrSection();
   displayWeekZekrSection()
 
-  document.addEventListener('click', function (e) {
+  document.addEventListener('click', function(e) {
     if (e.target) {
       if (e.target.id == 'settings_btn') {
         chrome.runtime.sendMessage({
@@ -97,7 +97,7 @@ function createDisplayTodayAzkar(usedAzkarArray) {
       innerCode: '',
       count: 0
     }
-    usedAzkarArray.forEach(function (item) {
+    usedAzkarArray.forEach(function(item) {
       if (item.dayLastUpdate == new Date().toDateString()) {
         usedAzkar.count += item.dayRepetition;
         if (item.zekr && typeof item.zekr !== 'undefined' && item.zekr.trim() !== '')
@@ -120,7 +120,7 @@ function createDisplayWeekAzkar(usedAzkarArray) {
       innerCode: '',
       count: 0
     }
-    usedAzkarArray.forEach(function (item) {
+    usedAzkarArray.forEach(function(item) {
       usedAzkar.count += item.weekRepetition;
       if (item.zekr && typeof item.zekr !== 'undefined' && item.zekr.trim() !== '')
         usedAzkar.innerCode += `<li class="list-group-item d-flex justify-content-between align-items-start
@@ -138,8 +138,32 @@ function createDisplayWeekAzkar(usedAzkarArray) {
   }
   return usedAzkar;
 }
-document.addEventListener("DOMContentLoaded", function (event) {
+document.addEventListener("DOMContentLoaded", function(event) {
   // scrapeHigriDateAndTimes();
   init();
-
+  getDaySabahZekrDone();
+  getDayMasaaZekrDone();
+  getWeekSabahZekr();
+  getWeekMasaaZekr();
 });
+
+
+function getDaySabahZekrDone() {
+  console.log(bgpage.checkSabahZekrDone());
+  return bgpage.checkSabahZekrDone();
+}
+
+function getDayMasaaZekrDone() {
+  console.log(bgpage.checkMasaaZekrDone());
+  return bgpage.checkMasaaZekrDone();
+}
+
+function getWeekSabahZekr() {
+  console.log(bgpage.getWeekSabahZekr());
+  return bgpage.getWeekSabahZekr();
+}
+
+function getWeekMasaaZekr() {
+  console.log(bgpage.getWeekMasaaZekr());
+  return bgpage.getWeekMasaaZekr();
+}
