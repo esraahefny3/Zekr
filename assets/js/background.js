@@ -54,7 +54,6 @@ function setSabahZekrReminder() {
             let dataResponse = {
               zekrData: zekrData,
               done: true,
-              color_to_add: get_color_theme(),
               higriDate: response.higriObj ? response.higriObj.higriDate : ""
             }
 
@@ -70,7 +69,7 @@ function setSabahZekrReminder() {
       });
     });
 
-  }, 1000 * 60);
+  }, 1000 * 60 * 60);
 }
 
 function checkSabahZekrDone() {
@@ -137,7 +136,6 @@ function setMasaaZekrReminder() {
             let dataResponse = {
               zekrData: zekrData,
               done: true,
-              color_to_add: get_color_theme(),
               higriDate: response.higriObj ? response.higriObj.higriDate : ""
             }
 
@@ -153,7 +151,7 @@ function setMasaaZekrReminder() {
       });
     });
 
-  }, 1000 * 60);
+  }, 1000 * 60 * 60);
 }
 
 
@@ -212,36 +210,16 @@ chrome.runtime.onMessage.addListener(function(message, sender, sendResponse) {
             let response = {
               zekrData: zekrData,
               done: true,
-              color_to_add: get_color_theme(),
               higriDate: higriObj ? higriObj.higriDate : ""
             }
             saveAnalytics(zekrData);
+            set_last_run();
             sendResponse(response);
           });
       });
-      return true; // Required for async sendResponse()
-    }
-  } else if (message.getWord == true) { //popup
-    getZekr(RandomZekr.storageKey, function(learned_word) {
-      saveCurrentInfo(learn_translated_word, "popup");
-      // add_to_word_analytics
-      set_last_run();
-      //1-add_to_word_analytics
 
-      add_to_word_analytics(false, 15);
-      //2-saveLearningTime
-      update_analytics_user_date(15); //to be change
-      clearInfo();
-      sendResponse({
-        done: true,
-        color_to_add: color_theme,
-        lang: get_lang(),
-        en_word: learn_word_en,
-        new_word: learn_translated_word,
-        date: date
-      });
-    });
-    return true;
+    }
+    return true; // Required for async sendResponse()
   } else if (message.getAnotherRandomZekrOverlay == true) {
     getZekr(RandomZekr.storageKey, function(zekrData) {
       getHigri().then(
@@ -249,7 +227,6 @@ chrome.runtime.onMessage.addListener(function(message, sender, sendResponse) {
           let response = {
             zekrData: zekrData,
             done: true,
-            color_to_add: get_color_theme(),
             higriDate: higriObj ? higriObj.higriDate : ""
           }
           saveAnalytics(zekrData);
@@ -264,7 +241,6 @@ chrome.runtime.onMessage.addListener(function(message, sender, sendResponse) {
           let response = {
             zekrData: zekrData,
             done: true,
-            color_to_add: get_color_theme(),
             higriDate: higriObj ? higriObj.higriDate : ""
           }
           sendResponse(response);
@@ -278,7 +254,6 @@ chrome.runtime.onMessage.addListener(function(message, sender, sendResponse) {
           let response = {
             zekrData: zekrData,
             done: true,
-            color_to_add: get_color_theme(),
             higriDate: higriObj ? higriObj.higriDate : ""
           }
           sendResponse(response);
@@ -297,12 +272,7 @@ chrome.runtime.onMessage.addListener(function(message, sender, sendResponse) {
   } else if (message.check_redirect == true) {
     sendResponse({
       response: check_redirect()
-    })
-  } else if (message.continueBrowsing == true) {
-    //saveLearningTime
-    let learnTime = saveLearningTime();
-    add_to_word_analytics(false, learnTime);
-    clearInfo();
+    });
     return true;
   } else if (message.sabahZekrDone == true) {
     setSabahDayDoneDate(message.sabahDayDoneDate);
@@ -386,27 +356,11 @@ function saveAnalytics(zekrData) {
   storage_set(User.storageKey, user);
 }
 
-function saveLearningTime() {
-  let endTime = new Date().getTime();
-  let user = storage_get('user');
-  if (user && user.last_used_at) {
-    let startTime = new Date(user.last_used_at).getTime();
-    let learnTime = differenceInSeconds(startTime, endTime);
-    update_analytics_user_date(learnTime);
-    return learnTime;
-  } else {
-    console.log('Cannot get user information');
-  }
-}
 
 //Redirect to redirect_website
 function redirect() {
   var settings = storage_get("settings");
   if (settings.redirect_website) {
-    let learnTime = saveLearningTime();
-    add_to_word_analytics(true, learnTime);
-    clearInfo();
-
     //3-redirect
     chrome.tabs.query({
       active: true,
@@ -430,7 +384,6 @@ function check_redirect() {
   }
 }
 
-var overlay_state = false;
 
 function getZekr(storageKey, callback) {
   let azkarList = storage_get(storageKey);
@@ -441,46 +394,10 @@ function getZekr(storageKey, callback) {
         callback(azkarList[zekrNo]);
       }
     );
-
-
   } else {
     let zekrNo = Math.floor(Math.random() * azkarList.length);
     callback(azkarList[zekrNo]);
   }
-}
-
-function test_words_to_learn() {
-  words_to_learn.forEach(learn_word);
-
-}
-
-function learn_word(english_word) {
-  word = null;
-  url = "https://a.kasahorow.org/?q=kjson&method=get.links&args=en%3E" + get_lang() + ":" + english_word + "&key=chrome&format=json"
-
-  get_response(url, function(response) {
-    var matches = response.match(/\{([^}]+)\}/);
-    if (matches) {
-      var submatch = matches[1].replace(/'/g, '"');
-    }
-
-    submatch = submatch;
-    submatch = "{" + submatch + "}"
-    try {
-      result = (JSON.parse(submatch)).m;
-      return_result = {
-        "english": english_word,
-        "new_word": result
-      };
-      return return_result;
-
-    } catch (e) {
-      return {
-        value: "error"
-      };
-    }
-  });
-
 }
 
 function is_website_a_blacklist(url) {
@@ -540,7 +457,7 @@ async function downloadAZkar(documentId, azkarListKey, storageKey) {
     });
     storage_set(storageKey, zekrList);
   }
-  return "hh";
+  return "";
 }
 
 function add_to_blacklist(website) {
@@ -609,28 +526,6 @@ function removeRedirectWebsite() {
   storage_set("settings", settings);
 }
 
-function get_color_theme() {
-  return storage_get("settings").color_theme;
-}
-
-function set_color_theme(color_theme) {
-  var settings = storage_get("settings");
-  settings.color_theme = color_theme;
-  storage_set("settings", settings);
-}
-
-function get_lang() {
-  return storage_get("settings").lang;
-}
-
-function set_lang(language) {
-  var settings = storage_get("settings");
-  settings.lang = language;
-  update_inspiration();
-  storage_set("settings", settings);
-
-}
-
 function get_redirect() {
   return storage_get("settings").redirect_website;
 }
@@ -641,29 +536,6 @@ function set_last_run() {
   storage_set("settings", settings);
 }
 
-function set_date_with_inspiration(date, inspiration) {
-  var settings = storage_get("settings");
-  settings.ks_date = date;
-  settings.inspiration = inspiration;
-  settings.update_date = (new Date()).toDateString();
-  storage_set("settings", settings)
-}
-
-function get_date() {
-  var settings = storage_get("settings");
-  return settings.ks_date;
-}
-
-
-function get_inspirtion() {
-  var settings = storage_get("settings");
-  return settings.inspiration;
-}
-
-function get_update_date() {
-  var settings = storage_get("settings");
-  return settings.update_date;
-}
 
 function toggle_all_websites_status() {
   var settings = storage_get("settings");
@@ -698,181 +570,10 @@ function get_blacklist() {
 }
 
 
-/* get date and inspiration */
-
-
-//to update inspiration locally instead of multiple json calls.
-function update_inspiration() {
-  var by;
-  var day;
-  var inspiration;
-
-  var xhr = new XMLHttpRequest();
-  //gets the JSON feed
-  url = 'http://' + language + '.kasahorow.org/app/m?format=json&source=chrome';
-  xhr.open("GET", url, true);
-  xhr.onreadystatechange = function() {
-    //Works after getting the feed
-    if (xhr.readyState == 4) {
-      var res = JSON.parse(xhr.response);
-      day = res["day"];
-      inspiration = res["inspiration"];
-      set_date_with_inspiration(day, inspiration);
-
-
-    }
-  };
-  xhr.send();
-
-}
-
-
-
-function inspire_update_check(get_now = false) {
-  var update_date = get_update_date();
-  if (get_now || isDateBeforeToday(update_date) || (update_date == null)) {
-    update_inspiration();
-  }
-}
-
-
 chrome.runtime.onInstalled.addListener(function(details) {
-  if (details && details.reason && details.reason == 'install') {
-
-    open_new_tab("user-profile.html");
-  } else {
-    //if(user information is not there)
-    open_new_tab("user-profile.html");
-  }
-
+  open_new_tab("user-profile.html");
 });
 
-
-//for blacklist
-function set_default_information() {
-  // let user = new User();
-
-  // var user = {
-  //   name: null,
-  //   email: null,
-  //   country: null,
-  //   native_lang: null,
-  //   lang: 'sn', //change in welcome page or settings.
-  //   total_time_spent: 0,
-  //   join_date: new Date().toDateString(), // set in installing the extension.
-  //   highest_streak: 0,
-  //   current_streak: 0,
-  //   last_used_at: null,
-  //   redirect_website: "https://www.google.com/"
-  // }
-  let user = new User(null, null, null, null, null, null, new Date().toDateString());
-  storage_set("user", user);
-  storage_set("word_analytics", {})
-  //words, time on each word, website word appeared on, blacklist or no?, redirected or no?, date
-}
-
-// function add_default_information(user_name, user_email, user_country, user_native_language, user_learn_lang, user_redirect_website)
-// {
-// 	user = storage_get("user");
-// 	user.name = user_name;
-// 	user.email = user_email;
-// 	user.country = user_country;
-// 	user.native_lang = user_native_language;
-// 	user.lang = user_learn_lang;
-// 	user.redirect_website = user_redirect_website;
-// 	storage_set("user", user)
-
-
-// }
-
-function add_default_information(user_name, user_email, user_country, user_native_language) {
-  user = storage_get("user");
-  user.name = user_name;
-  user.email = user_email;
-  user.country = user_country;
-  user.native_lang = user_native_language;
-  storage_set("user", user)
-
-
-}
-
-function update_analytics_user_date(time_spent) {
-  user = storage_get("user");
-  user.total_time_spent = user.total_time_spent + time_spent;
-  var today_date = new Date();
-
-  diff_days = difference_days(new Date(user.last_used_at), today_date);
-  console.log(diff_days);
-  if (diff_days > 1) {
-    user.current_streak = 0;
-  } else if (diff_days == 1) {
-    user.current_streak = user.current_streak + 1;
-    if (user.current_streak > user.highest_streak) {
-      user.highest_streak = user.current_streak;
-    }
-  }
-
-  storage_set("user", user);
-
-}
-
-function add_to_word_analytics(redirected_status, time_spent) {
-
-  //check if week changes clear the data and set the new current week
-  let firstDayOfCurrentWeek = getFirstDayOfCurrentWeek();
-  let storedWeek = storage_get('current_week');
-  if (storedWeek) {
-    if (!(firstDayOfCurrentWeek === storedWeek)) {
-      storage_set('word_analytics', {});
-      setFirstDayOfTheWeekStorage();
-    }
-  }
-
-  let info = storage_get('info');
-  if (info) {
-    var word_analytics_map = storage_get("word_analytics");
-    let time_spent_in_word = time_spent / info.length;
-    info.forEach(function(item) {
-      item['redirected_status'] = redirected_status;
-      item['time_spent_in_word'] = time_spent_in_word;
-      let today_date = new Date();
-      var today_date_string = today_date.toDateString();
-      word_analytics_map[today_date_string] = word_analytics_map[today_date_string] || [];
-      word_analytics_map[today_date_string].push(item);
-    });
-    storage_set("word_analytics", word_analytics_map);
-    console.log(storage_get('word_analytics'))
-
-
-  }
-
-
-}
-
-function saveCurrentInfo(word, browsing_website) {
-  let info = storage_get('info') || [];
-  let today_date = new Date();
-  var blacklist_status = is_website_a_blacklist(browsing_website);
-  var info_item = {
-    word: word,
-    browsing_website: baseURL(browsing_website),
-    blacklist_status: blacklist_status,
-    time_date: today_date.toLocaleString(),
-    lang: get_lang(),
-    time_spent_in_word: 0
-  }
-  info.push(info_item);
-  storage_set("info", info);
-
-  //set last used at time in milliseconds
-  let user = storage_get('user');
-  user.last_used_at = today_date;
-  storage_set('user', user);
-}
-
-function clearInfo() {
-  storage_set('info', []);
-}
 
 function getUser() {
   let user = storage_get(User.storageKey);

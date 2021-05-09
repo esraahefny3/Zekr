@@ -13530,7 +13530,7 @@ let states= [{
         },
         {
             "id": "2712",
-            "name": "ÃƒÂ˜stfold",
+            "name": "ÃƒÆ’Ã‚Ëœstfold",
             "country_id": "164"
         },
         {
@@ -20537,5 +20537,126 @@ let states= [{
             "id": "4120",
             "name": "Midlands",
             "country_id": "246"
+        },
+
+        {
+            "id": "4121",
+            "name": "Mariehamn",
+            "country_id": "247"
+        },
+
+        {
+            "id": "4122",
+            "name": "Gustavia",
+            "country_id": "248"
+        },
+
+        {
+            "id": "4123",
+            "name": "Kralendijk",
+            "country_id": "249"
+        },
+
+        {
+            "id": "4124",
+            "name": "Willemstad",
+            "country_id": "250"
+        },
+
+        {
+            "id": "4125",
+            "name": "Saint Peter Port",
+            "country_id": "251"
+        },
+
+        {
+            "id": "4126",
+            "name": "Glorioso Islands",
+            "country_id": "252"
+        },
+
+        {
+            "id": "4127",
+            "name": "Douglas",
+            "country_id": "253"
+        },
+
+        {
+            "id": "4128",
+            "name": "Saint Helier",
+            "country_id": "254"
+        },
+
+        {
+            "id": "4129",
+            "name": "Juan De Nova Island",
+            "country_id": "255"
+        },
+
+        {
+            "id": "4130",
+            "name": "Pristina",
+            "country_id": "256"
+        },
+
+        {
+            "id": "4131",
+            "name": "Podgorica",
+            "country_id": "257"
+        },
+
+        {
+            "id": "4132",
+            "name": "Philipsburg",
+            "country_id": "258"
+        },
+
+        {
+            "id": "4133",
+            "name": "Marigot",
+            "country_id": "259"
+        },
+
+        {
+            "id": "4134",
+            "name": "Dili",
+            "country_id": "260"
+        },
+
+        {
+            "id": "4135",
+            "name": "Jarvis Island",
+            "country_id": "261"
+        },
+
+        {
+            "id": "4136",
+            "name": "Baker Island",
+            "country_id": "262"
+        },
+
+        {
+            "id": "4137",
+            "name": "Howland Island",
+            "country_id": "263"
+        },
+
+        {
+            "id": "4138",
+            "name": "Johnston Atoll",
+            "country_id": "264"
+        },
+
+        {
+            "id": "4139",
+            "name": "Midway Islands",
+            "country_id": "265"
+        },
+
+        {
+            "id": "4140",
+            "name": "Wake Island",
+            "country_id": "266"
         }
+
     ]

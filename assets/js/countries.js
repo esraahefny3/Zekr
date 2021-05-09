@@ -1472,6 +1472,130 @@ let countries = [{
     "id": 246,
     "sortname": "ZW",
     "name": "Zimbabwe",
-    "phoneCode": 26
+    "phoneCode": 263
+  },
+  {
+    "id": 247,
+    "sortname": "AX",
+    "name": "Åland Islands",
+    "phoneCode": 358
+  },
+  {
+    "id": 248,
+    "sortname": "BL",
+    "name": "Saint Barthélemy",
+    "phoneCode": 590
+  },
+  {
+    "id": 249,
+    "sortname": "BQ",
+    "name": "Bonaire, Sint Eustatius and Saba",
+    "phoneCode": 599
+  },
+  {
+    "id": 250,
+    "sortname": "CW",
+    "name": "Curaçao",
+    "phoneCode": 599
+  },
+  {
+    "id": 251,
+    "sortname": "GG",
+    "name": "Guernsey",
+    "phoneCode": 44
+  },
+  {
+    "id": 252,
+    "sortname": "GO",
+    "name": "Glorioso Islands",
+    "phoneCode": 672
+  },
+  {
+    "id": 253,
+    "sortname": "IM",
+    "name": "Isle of Man",
+    "phoneCode": 44
+  },
+  {
+    "id": 254,
+    "sortname": "JE",
+    "name": "Jersey",
+    "phoneCode": 44
+  },
+  {
+    "id": 255,
+    "sortname": "JU",
+    "name": "Juan De Nova Island",
+    "phoneCode": 44
+  },
+  {
+    "id": 256,
+    "sortname": "XK",
+    "name": "Kosovo",
+    "phoneCode": 383
+  },
+  {
+    "id": 257,
+    "sortname": "ME",
+    "name": "Montenegro",
+    "phoneCode": 382
+  },
+  {
+    "id": 258,
+    "sortname": "MF",
+    "name": "Saint Martin MF",
+    "phoneCode": 590
+  },
+  {
+    "id": 259,
+    "sortname": "SX",
+    "name": "Saint Martin SX",
+    "phoneCode": 599
+  },
+  {
+    "id": 260,
+    "sortname": "TL",
+    "name": "Timor-Leste",
+    "phoneCode": 670
+  },
+  {
+    "id": 261,
+    "sortname": "UM-DQ",
+    "name": "Jarvis Island",
+    "phoneCode": 670
+  },
+  {
+    "id": 262,
+    "sortname": "UM-FQ",
+    "name": "Baker Island",
+    "phoneCode": 670
+  },
+  {
+    "id": 263,
+    "sortname": "UM-HQ",
+    "name": "Howland Island",
+    "phoneCode": 670
+  },
+  {
+    "id": 264,
+    "sortname": "UM-JQ",
+    "name": "Johnston Atoll",
+    "phoneCode": 670
+  },
+  {
+    "id": 265,
+    "sortname": "UM-MQ",
+    "name": "Midway Islands",
+    "phoneCode": 670
+  },
+  {
+    "id": 266,
+    "sortname": "UM-WQ",
+    "name": "Wake Island",
+    "phoneCode": 670
   }
+
+
+
+
 ];

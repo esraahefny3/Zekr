@@ -1,9 +1,6 @@
 var bgpage = chrome.extension.getBackgroundPage();
 
-function toggleBtnColor(btn, addClass, removeClass) {
-  btn.classList.add(addClass);
-  btn.classList.remove(removeClass);
-}
+
 
 function init() {
 
@@ -23,15 +20,7 @@ function init() {
       }
     }
   }, false);
-  var theme_color_picker = document.getElementsByClassName('theme_color_picker');
-  color_theme = bgpage.get_color_theme();
-  for (item of theme_color_picker) {
-    item.style.background = color_theme;
-  }
 }
-
-
-
 
 function displayUserData() {
   let userNameElement = document.getElementById('user-name');

@@ -72,8 +72,6 @@ document.addEventListener('click', function(e) {
     } else if ((e.target.id == 'remove-random-overlay-btn' ||
         e.target.id == 'continue-browsing')) {
       click_status = true;
-
-      continueBrowsing();
       remove_overlay(randomZekrOverlayClassName);
 
       e.stopPropagation();
@@ -114,11 +112,6 @@ document.addEventListener('click', function(e) {
 }, false);
 
 
-function continueBrowsing() {
-  chrome.runtime.sendMessage({
-    continueBrowsing: true
-  }, null);
-}
 
 //Onload
 
