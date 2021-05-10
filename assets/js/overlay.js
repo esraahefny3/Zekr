@@ -207,7 +207,7 @@ if (!injectOverlayOff) {
   }, function(response) {
     // Script injected, we can proceed
     if (response && response.done) {
-      icon_src = chrome.runtime.getURL("images/icon48.png");
+      icon_src = chrome.runtime.getURL("public/images/icons/icon128.png");
 
       let inner_code = `
 			<section dir="rtl" class="zeker-overlay profilebox">
@@ -288,7 +288,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 
 function showSabahZekr(message) {
   if (message.response && message.response.done) {
-    icon_src = chrome.runtime.getURL("images/icon48.png");
+    icon_src = chrome.runtime.getURL("images/icons/icon48.png");
     let inner_code = `
     <section dir="rtl" class="zeker-overlay profilebox">
       <button class="prof-close btn btn-primary" id="remove-sabah-overlay-btn" type="button">
@@ -351,7 +351,7 @@ function showSabahZekr(message) {
 
 function showMasaaZekr(message) {
   if (message.response && message.response.done) {
-    icon_src = chrome.runtime.getURL("images/icon48.png");
+    icon_src = chrome.runtime.getURL("images/icons/icon48.png");
     let inner_code = `
     <section dir="rtl" class="zeker-overlay profilebox">
       <button class="prof-close btn btn-primary" id="remove-masaa-overlay-btn" type="button">

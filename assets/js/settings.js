@@ -192,9 +192,6 @@ function itemDeleted() {
 
 }
 
-
-
-
 document.addEventListener("DOMContentLoaded", function (event) {
   if (notloaded) {
     getStorage();

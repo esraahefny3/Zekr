@@ -1,6 +1,5 @@
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 
-
 const firebaseConfig = {
   apiKey: env.API_KEY,
   authDomain: env.AUTH_DOMAIN,
@@ -19,11 +18,11 @@ var db = firebase.firestore();
 function addToDb(collectionName, jsonData, callback) {
   db.collection(collectionName).add(jsonData)
     .then((docRef) => {
-      console.log("Document written with ID: ", docRef.id);
+      console.log("Firebase document written with ID: ", docRef.id);
       callback(docRef.id);
     })
     .catch((error) => {
-      console.error("Error adding document: ", error);
+      console.error("Firebase Error adding document: ", error);
     });
 
 }
@@ -42,9 +41,9 @@ function readFrombDb(collection, docRefId, callback) {
       callback(doc.data());
     } else {
       // doc.data() will be undefined in this case
-      console.log("No such document!");
+      console.log("Firebase: No such document!");
     }
   }).catch((error) => {
-    console.log("Error getting document:", error);
+    console.log("Firebase Error getting document:", error);
   });
 }
