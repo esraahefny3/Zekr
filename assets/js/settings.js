@@ -10,12 +10,6 @@ var all_websites_toggle = document.getElementById('toggle_all_websites');
 var always_show = document.getElementById('always_word_switch');
 var minutes_input = document.getElementById('minutes_input');
 var choose_lang_menu = document.getElementById('inputGroupSelect01');
-var theme_color_africanstyle = document.getElementById('africanstyle');
-var theme_color_bluewave = document.getElementById('bluewave');
-var theme_color_summertime = document.getElementById('summertime');
-var theme_color_party = document.getElementById('party');
-var theme_color_stars = document.getElementById('stars');
-var theme_color_picker = document.getElementById('theme_color_picker');
 var redirectWebsite_lable = document.getElementById('redirectWebsite_lable');
 var redirect_website_input = document.getElementById('redirect_website_input');
 var add_redirect_btn = document.getElementById('add_redirect_btn');
@@ -54,10 +48,6 @@ function setStorage() {
   }
 }
 
-function change_color_theme(color_theme) {
-  theme_color_picker.style.background = color_theme;
-  bgpage.set_color_theme(color_theme);
-}
 
 // Initialize List
 function initSettings() {
@@ -67,50 +57,12 @@ function initSettings() {
   minutes_input.value = bgpage.get_frequency();
   always_show.checked = (minutes_input.value == 0);
 
-  // color_theme = bgpage.get_color_theme();
-  // theme_color_picker.style.background = color_theme;
-
 
   // Event Listeners
   add_to_list.addEventListener('click', (e) => {
     setStorage();
   })
 
-  theme_color_africanstyle.addEventListener('click', (e) => {
-    color_theme = "linear-gradient(to left, #ffbc00, #fe9e00, #fb7f00, #f65c00, #ee2e05)"
-    change_color_theme(color_theme);
-  });
-
-  theme_color_bluewave.addEventListener('click', (e) => {
-    color_theme = "linear-gradient(to right, #A6FFCB, #12D8FA, #1FA2FF)";
-    change_color_theme(color_theme);
-
-  });
-
-  theme_color_summertime.addEventListener('click', (e) => {
-    color_theme = "linear-gradient(to right, #a8ff78, #78ffd6)";
-    change_color_theme(color_theme);
-
-  });
-
-  theme_color_party.addEventListener('click', (e) => {
-    color_theme = "linear-gradient(to right, #333333, #dd1818)";
-    change_color_theme(color_theme);
-
-  });
-
-  theme_color_stars.addEventListener('click', (e) => {
-    color_theme = "linear-gradient(to right, #4568dc, #b06ab3)";
-    change_color_theme(color_theme);
-
-  });
-
-
-  theme_color_stars.addEventListener('click', (e) => {
-    color_theme = "linear-gradient(to right, #4568dc, #b06ab3)";
-    change_color_theme(color_theme);
-
-  });
 
   all_websites_toggle.addEventListener('change', function (e) {
     bgpage.toggle_all_websites_status();

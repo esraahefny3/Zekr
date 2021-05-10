@@ -425,7 +425,6 @@ function validate_last_run(last_run, run_after) {
 //for blacklist
 function setDefaultSettings() {
   let settings = {
-    color_theme: "linear-gradient(to left, #ffbc00, #fe9e00, #fb7f00, #f65c00, #ee2e05)",
     update_date: null,
     all_websites: false,
     always_run: false,
