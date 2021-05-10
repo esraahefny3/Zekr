@@ -1,4 +1,4 @@
-let countries = [{
+const countries = [{
     "id": 1,
     "sortname": "AF",
     "name": "Afghanistan",

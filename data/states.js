@@ -1,4 +1,4 @@
-let states= [{
+const states= [{
             "id": "1",
             "name": "Andaman and Nicobar Islands",
             "country_id": "101"
