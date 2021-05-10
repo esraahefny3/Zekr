@@ -17,3 +17,6 @@ logs/
 *.flv
 *.mov
 *.wmv
+
+#env 
+data/env.js
