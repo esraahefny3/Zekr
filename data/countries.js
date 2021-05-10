@@ -1595,7 +1595,4 @@ let countries = [{
     "phoneCode": 670
   }
 
-
-
-
 ];
