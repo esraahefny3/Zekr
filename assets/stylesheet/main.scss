@@ -1,6 +1,6 @@
 @import "./custom-variables";
-@import "../../node_modules/bootstrap/scss/bootstrap";
 
+@import "../../node_modules/bootstrap/scss/bootstrap";
 // Theme
 @import "./theme/theme";
 
@@ -11,3 +11,22 @@
 
 //components
 @import "./components/components-index";
+
+a {
+  color: #0254eb;
+}
+a:visited {
+  color: #0254eb;
+}
+a.morelink {
+  text-decoration: none;
+  outline: none;
+}
+.morecontent span {
+  display: none;
+}
+.comment {
+  width: 400px;
+  background-color: #f0f0f0;
+  margin: 10px;
+}

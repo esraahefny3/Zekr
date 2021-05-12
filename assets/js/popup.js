@@ -62,9 +62,6 @@ function run_popup() {
       }
 
       fadl.innerHTML = response.zekrData.fadl;
-
-
-
       // response_date.innerHTML = response.date;
       showResponse();
 
