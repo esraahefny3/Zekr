@@ -14,7 +14,7 @@
     "sass": "^1.32.11"
   },
   "scripts": {
-    "sass": "node-sass -rw assets/stylesheet -o  public/css --output-style compressed"
+    "sass": "node-sass -rw assets/stylesheet -o  misk/assets/css --output-style compressed"
   },
   "dependencies": {
     "node-sass": "^6.0.0"

@@ -1,7 +1,6 @@
 # Node artifact files
 node_modules/
 dist/
-public/css
 logs/
 
 # Log files
@@ -19,4 +18,4 @@ logs/
 *.wmv
 
 #env 
-data/env.js
+misk/data/env.js
