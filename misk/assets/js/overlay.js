@@ -1,3 +1,4 @@
+var injectOverlayOff;
 var click_status = false;
 var randomZekrOverlayClassName = 'random-zekr-overlay';
 var sabahZekrOverlayClassName = 'sabah-zekr-overlay';
@@ -19,7 +20,7 @@ var overlayStyle = `
 	  z-index: 6000;
 `;
 
-function injectZekrOverlay(overlayClassName, inner_code) {
+function injectOverlay(overlayClassName, inner_code) {
 
   let overlay_block = document.getElementsByClassName(overlayClassName)[0];
   if (!overlay_block) {
@@ -32,13 +33,12 @@ function injectZekrOverlay(overlayClassName, inner_code) {
   }
 }
 
-function remove_overlay(overlayClassName) {
+function removeOverlay(overlayClassName) {
   let element = document.getElementsByClassName(overlayClassName)[0];
   if (element) {
     element.parentNode.removeChild(element);
     injectOverlayOff = false;
   }
-
 }
 
 
@@ -46,109 +46,81 @@ function remove_overlay(overlayClassName) {
 document.addEventListener('click', function(e) {
   if (!click_status && e.target) {
     if (e.target.id == 'get-another-random-zekr') {
+      
       click_status = true;
       getAnotherRandomZekr();
       e.stopPropagation();
       e.preventDefault();
 
     } else if (e.target.id == 'get-another-sabah-zekr') {
+      
       click_status = true;
       getAnotherSabahZekr();
       e.stopPropagation();
       e.preventDefault();
 
     } else if (e.target.id == 'get-another-masaa-zekr') {
+      
       click_status = true;
       getAnotherMasaaZekr();
       e.stopPropagation();
       e.preventDefault();
 
-    } else if (e.target.id == 'random-settings-btn' || e.target.id == 'sabah-settings-btn' || e.target.id == 'masaa-settings-btn') {
+    } else if (e.target.id == 'misk-settings-btn' ) {
+      
       chrome.runtime.sendMessage({
         openSettings: true
       }, null);
       e.stopPropagation();
       e.preventDefault();
-    } else if ((e.target.id == 'remove-random-overlay-btn' ||
-        e.target.id == 'continue-browsing')) {
-      click_status = true;
-      remove_overlay(randomZekrOverlayClassName);
 
-      e.stopPropagation();
-      e.preventDefault();
-    } else if (e.target.id == 'redirect') {
+    } else if ((e.target.id == 'remove-random-overlay-btn' || e.target.id == 'continue-browsing')) {
       click_status = true;
-      redirect();
+      removeOverlay(randomZekrOverlayClassName);
       e.stopPropagation();
       e.preventDefault();
+
+    } else if (e.target.id == 'misk-redirect') {
+      click_status = true;
+      miskRedirect();
+      e.stopPropagation();
+      e.preventDefault();
+
     } else if (e.target.id == 'sabah-done-btn') {
       click_status = true;
       //save analytics
       // saveSabahZekr()
       setSabahDayDoneDate(new Date().toDateString());
-      remove_overlay(sabahZekrOverlayClassName);
+      removeOverlay(sabahZekrOverlayClassName);
+
     } else if (e.target.id == 'sabah-later-btn' || e.target.id == 'remove-sabah-overlay-btn') {
+      
       click_status = true;
-      remove_overlay(sabahZekrOverlayClassName);
+      removeOverlay(sabahZekrOverlayClassName);
+
     } else if (e.target.id == 'masaa-done-btn') {
+      
       click_status = true;
       //save analytics
       setMasaaDayDoneDate(new Date().toDateString());
-      remove_overlay(masaaZekrOverlayClassName);
+      removeOverlay(masaaZekrOverlayClassName);
+
     } else if (e.target.id == 'masaa-later-btn' || e.target.id == 'remove-masaa-overlay-btn') {
+      
       click_status = true;
-      remove_overlay(masaaZekrOverlayClassName);
+      removeOverlay(masaaZekrOverlayClassName);
+
     }
-
-
-
   }
+
   window.setTimeout(function() {
     click_status = false;
   }, 500);
-
-
-
 }, false);
 
 
 
-//Onload
-
-//check if redirect website exist to show the redirect link
-function check_redirect() {
-  chrome.runtime.sendMessage({
-    check_redirect: true
-  }, function(response) {
-    if (response.response) {
-      document.getElementById("redirect").style.display = 'inline';
-
-    }
-  });
-
-}
-
-//Redirect to user redirect website
-function redirect() {
-  chrome.runtime.sendMessage({
-    redirect: true
-  }, null);
-}
-
-function setSabahDayDoneDate(date) {
-  chrome.runtime.sendMessage({
-    sabahZekrDone: true,
-    sabahDayDoneDate: date
-  }, null);
-}
-
-function setMasaaDayDoneDate(date) {
-  chrome.runtime.sendMessage({
-    masaaZekrDone: true,
-    masaaDayDoneDate: date
-  }, null);
-}
-
+// Getters Of Zekr Content
 function getAnotherRandomZekr() {
   chrome.runtime.sendMessage({
     getAnotherRandomZekrOverlay: true
@@ -160,7 +132,6 @@ function getAnotherRandomZekr() {
       zekr.innerHTML = response.zekrData.zekr;
       fadl.innerHTML = response.zekrData.fadl;
     }
-
   });
 }
 
@@ -177,7 +148,6 @@ function getAnotherSabahZekr() {
       fadl.innerHTML = response.zekrData.fadl;
       repetition.innerHTML = response.zekrData.repetition;
     }
-
   });
 }
 
@@ -198,7 +168,24 @@ function getAnotherMasaaZekr() {
   });
 }
 
-var injectOverlayOff;
+// Setter Of Masaa And Sabaah Zekr Done
+function setSabahDayDoneDate(date) {
+  chrome.runtime.sendMessage({
+    sabahZekrDone: true,
+    sabahDayDoneDate: date
+  }, null);
+}
+
+function setMasaaDayDoneDate(date) {
+  chrome.runtime.sendMessage({
+    masaaZekrDone: true,
+    masaaDayDoneDate: date
+  }, null);
+}
+
+
+
+//Default random misk overlay onload
 
 if (!injectOverlayOff) {
   // content script
@@ -210,28 +197,28 @@ if (!injectOverlayOff) {
       icon_src = chrome.runtime.getURL("assets/images/icons/icon128.png");
 
       let inner_code = `
-			<section dir="rtl" class="zeker-overlay profilebox">
+      <section dir="rtl" class="zeker-overlay profilebox">
         <button class="prof-close btn btn-primary" id="remove-random-overlay-btn" type="button">
           <i class="fas fa-times"></i>
         </button>
-					<aside class="zeker-overlay__aside ks_nomargin">
+          <aside class="zeker-overlay__aside ks_nomargin">
           <div class="zeker-overlay__aside__profile-pic">
             <img class="profpic" src=${icon_src} alt="profile picture" />
           </div>
-						<ul class="prof-sm">
-							<li>
-								<span title="Learn another word" >
+            <ul class="prof-sm">
+              <li>
+                <span title="Do More Zikr" >
                   <i id="get-another-random-zekr" class="fas fa-sync-alt"></i>
-								</span>
-							</li>
+                </span>
+              </li>
 
-							<li>
-								<span  title="Settings (Change Language)" >
-                  <i id="random-settings-btn"  class="fas fa-cogs svg-icon"></i>
-								</span>
-							</li>
-						</ul>
-					</aside>
+              <li>
+                <span  title="Settings" >
+                  <i id="misk-settings-btn"  class="fas fa-cogs svg-icon"></i>
+                </span>
+              </li>
+            </ul>
+          </aside>
           <div class="zeker-overlay__content">
             <header class="ks_header zeker-overlay__header">
               <h1 class="ks_center prof-name text-center text-primary mb-4">اذكر الله</h1>
@@ -251,17 +238,17 @@ if (!injectOverlayOff) {
                   <i class="fas fa-recycle"></i>
                   تابع التصفح
                 </button>
-                <button class="ks_info btn btn-secondary" id="redirect" type="button">
+                <button class="ks_info btn btn-secondary" id="misk-redirect" type="button">
                  <i class="fas fa-share-square"></i>
                 إعادة توجيه
                 </button>
               </div>
             </footer>
           </div>
- 		</section>
-		`;
+    </section>
+    `;
       injectOverlayOff = true;
-      injectZekrOverlay(randomZekrOverlayClassName, inner_code);
+      injectOverlay(randomZekrOverlayClassName, inner_code);
 
       // hideCloseOverlay();
 
@@ -271,6 +258,8 @@ if (!injectOverlayOff) {
   })
 };
 
+
+//on sabah and masaa request
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   if (message.action == "open_sabah_overlay") {
     if (!injectOverlayOff) {
@@ -307,7 +296,7 @@ function showSabahZekr(message) {
 
             <li>
               <span  title="Settings (Change Language)" >
-                <i id="sabah-settings-btn"  class="fas fa-cogs svg-icon"></i>
+                <i id="misk-settings-btn"  class="fas fa-cogs svg-icon"></i>
               </span>
             </li>
           </ul>
@@ -343,7 +332,7 @@ function showSabahZekr(message) {
   </section>
   `;
     injectOverlayOff = true;
-    injectZekrOverlay(sabahZekrOverlayClassName, inner_code);
+    injectOverlay(sabahZekrOverlayClassName, inner_code);
     return true;
 
   }
@@ -370,7 +359,7 @@ function showMasaaZekr(message) {
 
             <li>
               <span  title="Settings (Change Language)" >
-                <i id="masaa-settings-btn"  class="fas fa-cogs svg-icon"></i>
+                <i id="misk-settings-btn"  class="fas fa-cogs svg-icon"></i>
               </span>
             </li>
           </ul>
@@ -396,7 +385,7 @@ function showMasaaZekr(message) {
                 <i class="fas fa-recycle"></i>
               تم
               </button>
-              <button class="ks_info btn btn-secondary" id="masaa-later-btn" type="button">
+              <button class="ks_info btn btn-secondary"  id="masaa-later-btn" type="button">
                <i class="fas fa-share-square"></i>
                لاحقا
               </button>
@@ -407,7 +396,22 @@ function showMasaaZekr(message) {
   `;
 
     injectOverlayOff = true;
-    injectZekrOverlay(masaaZekrOverlayClassName, inner_code);
+    injectOverlay(masaaZekrOverlayClassName, inner_code);
     return true;
   }
 }
+
+
+
+
+//Onload
+
+//Redirect to user redirect website
+function miskRedirect(redirect_id) {
+  chrome.runtime.sendMessage({
+    redirect: true,
+  }, null);
+}
+
+
+

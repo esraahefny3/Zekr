@@ -35,6 +35,7 @@ chrome.runtime.onInstalled.addListener(function(details) {
   downloadAZkar(RandomZekr.documentId, RandomZekr.azkarListKey, RandomZekr.storageKey);
   downloadAZkar(SabahZekr.documentId, SabahZekr.azkarListKey, SabahZekr.storageKey);
   downloadAZkar(MasaaZekr.documentId, MasaaZekr.azkarListKey, MasaaZekr.storageKey);
+  RecommendationList.downloadRecommendations();
 
   setSabahZekrReminder();
   setMasaaZekrReminder();
@@ -209,7 +210,7 @@ chrome.runtime.onMessage.addListener(function(message, sender, sendResponse) {
             let response = {
               zekrData: zekrData,
               done: true,
-              higriDate: higriObj ? higriObj.higriDate : ""
+              higriDate: higriObj ? higriObj.higriDate : "",
             }
             saveAnalytics(zekrData);
             set_last_run();
@@ -268,11 +269,6 @@ chrome.runtime.onMessage.addListener(function(message, sender, sendResponse) {
   } else if (message.redirect == true) {
     return redirect();
 
-  } else if (message.check_redirect == true) {
-    sendResponse({
-      response: check_redirect()
-    });
-    return true;
   } else if (message.sabahZekrDone == true) {
     setSabahDayDoneDate(message.sabahDayDoneDate);
     saveSabahMasaaAnalytics(SabahZekr.weekAnalyticsStorageKey);
@@ -358,15 +354,14 @@ function saveAnalytics(zekrData) {
 
 //Redirect to redirect_website
 function redirect() {
-  var settings = storage_get("settings");
-  if (settings.redirect_website) {
-    //3-redirect
+  var recommendation = RecommendationList.getRecommendation();
+  if (recommendation) {
     chrome.tabs.query({
       active: true,
       currentWindow: true
     }, function(tabs) {
       chrome.tabs.update(tabs[0].id, {
-        url: settings.redirect_website
+        url: recommendation.url
       });
     });
 
@@ -374,14 +369,6 @@ function redirect() {
   }
 }
 
-function check_redirect() {
-  var settings = storage_get("settings");
-  if (settings.redirect_website) {
-    return true;
-  } else {
-    return false;
-  }
-}
 
 
 function getZekr(storageKey, callback) {
@@ -457,6 +444,7 @@ async function downloadAZkar(documentId, azkarListKey, storageKey) {
   }
   return "";
 }
+
 
 function add_to_blacklist(website) {
   //check if it is valid or exist already..else return something that we can process
