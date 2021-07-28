@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="ar">
+
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" type="text/css" href="./assets/css/main.css">
+</head>
+
+<body id="popup_body">
+  <div class="ks_overlay">
+
+    <section class="popup profilebox">
+      <aside class="popup__aside">
+        <ul id="dynamicDiv" class="prof-sm">
+          <li>
+            <span class="icon" title="الاعدادات">
+              <i id="settings-btn" class="fas fa-cogs svg-icon"></i>
+            </span>
+          </li>
+
+          <li>
+            <span class="icon" title="صفحة المستخدم">
+              <i id="user-profile-btn" class="fas fa-user"></i>
+            </span>
+          </li>
+
+          <li>
+            <span class="icon" title="الانجاز">
+              <i id="dashboard-btn" class="fas fa-tachometer-alt ml-3"></i>
+            </span>
+          </li>
+        </ul>
+      </aside>
+      <div class="popup__content">
+        <header class="popup__header">
+          <h1 class="ks_center prof-name text-center text-primary mb-4">
+            هلال ذكرك
+            <i class="fas fa-moon"></i>
+          </h1>
+        </header>
+
+        <main class="user-desc popup__body">
+          <div class="ks_center" style="display: none" id="popup_content">
+            <h3 id="zekr" class="zekr-text"></h3>
+            <p id="fadl" class="zekr-text mb-0 text-secondary-dark"></p>
+          </div>
+        </main>
+
+        <footer class="popup__footer">
+          <ul class="user-tags">
+            <li class="tag ks_uppercase" id="higri-date"></li>
+            <li class="tag ks_uppercase" id="response_lang"></li>
+          </ul>
+        </footer>
+      </div>
+
+    </section>
+  </div>
+</body>
+<script src="vendor/jquery/jquery.min.js"></script>
+<script src="./vendor/fontawesome/js/all.min.js"> </script>
+<script src="./assets/js/helpers.js"></script>
+<script src="./assets/js/popup.js"></script>
+
+</html>

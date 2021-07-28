@@ -6,11 +6,11 @@
 @import "../../node_modules/bootstrap/scss/_buttons";
 
 @font-face {
-  font-family: "Tajawal";
+  font-family: "Mada";
   font-style: normal;
   font-weight: 400;
   font-display: swap;
-  src: url("./public/fonts/mada-font/mada-400.woff2") format("woff2");
+  src: url("./assets/fonts/mada-font/mada-400.woff2") format("woff2");
   unicode-range: U+0600-06FF, U+200C-200E, U+2010-2011, U+204F, U+2E41,
     U+FB50-FDFF, U+FE80-FEFC;
 }
@@ -94,7 +94,7 @@
   }
 
   h3 {
-    font-size: 1.5rem;
+    font-size: calc(1.3rem + 0.6vw);
     color: $font-color-base;
   }
 

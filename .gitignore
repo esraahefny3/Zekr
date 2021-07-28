@@ -1,7 +1,6 @@
 # Node artifact files
 node_modules/
 dist/
-public/css
 logs/
 
 # Log files
@@ -17,3 +16,6 @@ logs/
 *.flv
 *.mov
 *.wmv
+
+#env
+misk/data/env.js

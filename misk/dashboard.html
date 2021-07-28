@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="ar">
+
+<head lang="en">
+  <meta charset="UTF-8">
+  <title>الانجازات</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="./assets/css/main.css">
+</head>
+
+<body>
+
+  <!-- START SIDEBAR -->
+  <aside class="aside">
+    <div class="aside__logo mt-3 text-center">
+      <img src="./assets/images/logo.png" alt="logo" />
+    </div>
+
+    <nav class="nav flex-column nav-pills e-3">
+      <a href="./dashboard.html" class="nav-link active" type="button">
+        <i class="aside__icon fas fa-tachometer-alt ml-3"></i>
+        لوحة التحكم
+      </a>
+
+      <a href="./user-profile.html" class="nav-link" type="button">
+        <i class="aside__icon fas fa-user-circle"></i>
+        الصفحة الشخصية
+      </a>
+
+      <a id="settings_btn" href="./settings.html" class="nav-link" type="button">
+        <i class="aside__icon fas fa-cogs"></i>
+        الأعدادات
+      </a>
+    </nav>
+  </aside>
+  <!--END SIDEBAR -->
+  <article class="main-content">
+    <!--Start Header -->
+    <header class="header ">
+      <h2 class="text-center">
+        <i class="fas fa-tachometer-alt"></i>
+        لوحة التحكم
+      </h2>
+    </header>
+    <!--END Header -->
+
+    <main>
+      <h1 class="text-primary text-center">
+        مرحبا بك <span id="user-name" class="fs-2"></span>
+      </h1>
+
+      <article class="container my-5">
+        <section class="row row-cols-1 row-cols-md-2 g-4">
+          <div class="col-md-4 ">
+            <div class="card h-100 border-primary">
+              <div class="card-body d-md-flex">
+                <img src="./assets/images/growth.svg" class="w-25" />
+                <div class="pe-3">
+                  <h3 class="card-title mb-3 text-primary">اجمالي ذكرك لله</h3>
+                  <h4 id="total-azkar" class="card-text text-center"></h4>
+                  <span class="chatbot-illustration"></span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-4 ">
+            <div class="card h-100 border-secondary">
+              <div class="card-body d-md-flex">
+                <img src="./assets/images/today.svg" class="w-25" />
+                <div class="pe-3">
+                  <h3 class="card-title mb-3 text-secondary">ذكرك اليوم</h3>
+                  <h4 class="L-day-azkar-count card-text text-center"></h4>
+
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-4 ">
+            <div class="card h-100 border-danger">
+              <div class="card-body d-md-flex">
+                <img src="./assets/images/week.svg" class="w-25" />
+                <div class="pe-3">
+                  <h3 class="card-title mb-3 text-danger">ذكرك هذا الاسبوع</h3>
+                  <h4 class="card-text text-center L-week-azkar-count"></h4>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </section>
+        <section class="my-5">
+          <div class="d-md-flex align-items-baseline justify-content-between">
+            <h2>
+              عرض تفاصيل ذكرك اليومى
+              <span class="text-secondary align-middle">
+                (<span class="L-day-azkar-count"></span>)
+              </span>
+            </h2>
+            <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapse_day_zekr"
+              aria-expanded="true" aria-controls="collapse_day_words">
+              <i class="fas fa-eye"></i>
+              عرض
+            </button>
+          </div>
+          <div class="collapse" id="collapse_day_zekr">
+            <div class="list-group card p-3 list-group-numbered list-group-flush mt-3 bg-light rounded"
+              id="today-azkar">
+            </div>
+          </div>
+        </section>
+
+        <section class="my-5">
+          <div class="d-md-flex align-items-baseline justify-content-between">
+            <h2>
+              عرض تفاصيل ذكرك الاسبوعى
+              <span class="text-danger align-middle">
+                (<span class="L-week-azkar-count"></span>)
+              </span>
+            </h2>
+            <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapse_week_zekr"
+              aria-expanded="false" aria-controls="collapse_day_words" id="week-zekr-btn">
+              <i class="fas fa-eye"></i>
+              عرض
+            </button>
+          </div>
+          <div class="collapse" id="collapse_week_zekr">
+            <div class="list-group card p-3 list-group-numbered list-group-flush mt-3 bg-light rounded" id="week-azkar">
+            </div>
+          </div>
+        </section>
+      </article>
+    </main>
+
+  </article>
+
+  <script src="./data/countries-urls.js"></script>
+  <script src="./vendor/jquery/jquery.min.js"> </script>
+  <script src="/vendor/bootstrap/bootstrap.min.js"> </script>
+  <script src="./vendor/fontawesome/js/all.min.js"> </script>
+  <script src="./assets/js/higri-scrapping.js"></script>
+  <script src="./assets/js/dashboard.js"></script>
+
+</body>
+
+</html>
