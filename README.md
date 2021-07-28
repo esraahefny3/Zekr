@@ -1,13 +1,13 @@
-"# Misk" 
+"# Misk"
 # yarn
 # yarn sass
 
 
 --
 
-Make sure you have data/env.js locally. It should look like this with real data.
+Make sure you have misk/data/env.js locally. It should look like this with real data.
 
-``` 
+```
 const env = {
 	"API_KEY": API_KEY,
 	"AUTH_DOMAIN": AUTH_DOMAIN,
